@@ -1,111 +1,116 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { X, Check } from 'lucide-react'
-import DotPattern from '@/components/ui/DotPattern'
+
+const EASE = [0.22, 1, 0.36, 1] as const
 
 const painPoints = [
-  'Spent 3 hours customizing a resume for a job that auto-rejected you in 10 seconds.',
-  'Applied to 200 jobs this month. Got 4 auto-replies and zero humans.',
-  'Your LinkedIn has 500+ connections and none of them are helping.',
-  'You rehearsed your "tell me about yourself" in the shower again. Still no interview to use it in.',
+  { text: 'Spent 3 hours customizing a resume for a job that auto-rejected you in 10 seconds.', num: '01' },
+  { text: 'Applied to 200 jobs this month. Got 4 auto-replies and zero humans.', num: '02' },
+  { text: 'Your LinkedIn has 500+ connections and none of them are helping.', num: '03' },
+  { text: 'You rehearsed your "tell me about yourself" in the shower again. Still no interview to use it in.', num: '04' },
 ]
 
 const reliefPoints = [
-  'Your resume is already optimized and sent to 40 targeted roles this week. You are watching a movie.',
-  'Recruiters are reaching out to you because your LinkedIn actually works now.',
-  'You got 3 interview requests this week. You did not apply to any of them yourself.',
-  'Your evenings feel meaningful because you are teaching someone real skills over Zoom.',
+  { text: 'Your resume is already optimized and sent to 40 targeted roles this week. You are watching a movie.', num: '01' },
+  { text: 'Recruiters are reaching out to you because your LinkedIn actually works now.', num: '02' },
+  { text: 'You got 3 interview requests this week. You did not apply to any of them yourself.', num: '03' },
+  { text: 'Your evenings feel meaningful because you are teaching someone real skills over Zoom.', num: '04' },
 ]
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: i * 0.1, duration: 0.4, ease: 'easeOut' as const },
-  }),
-}
 
 export default function ProblemSection() {
   return (
-    <section id="problem" className="relative py-20 sm:py-28 lg:py-32 bg-gray-light overflow-hidden">
-      <DotPattern />
-
-      <div className="relative z-10 max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="problem" className="relative py-24 sm:py-32 lg:py-40 bg-white overflow-hidden">
+      <div className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10">
+        {/* Section intro - editorial style */}
         <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 20 }}
+          className="max-w-2xl mb-20 sm:mb-28"
+          initial={{ opacity: 0, y: 32 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.8, ease: EASE }}
         >
-          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-dark tracking-tight">
-            Same person. Different reality.
+          <span className="inline-flex items-center gap-2.5 text-[12px] font-semibold uppercase tracking-[0.15em] text-primary/50 mb-5">
+            <span className="w-6 h-px bg-primary/30" />
+            The reality
+          </span>
+          <h2 className="font-display text-[2rem] sm:text-[2.75rem] lg:text-[3.5rem] font-semibold text-dark tracking-[-0.035em] leading-[1.08]">
+            Same person.<br />Different reality.
           </h2>
-          <div className="mt-5 flex items-center gap-1.5 justify-center">
-            <span className="w-2 h-2 rounded-full bg-accent" />
-            <span className="w-2 h-2 rounded-full bg-accent/60" />
-            <span className="w-2 h-2 rounded-full bg-accent/30" />
-          </div>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
-          <div>
-            <motion.div
-              className="flex items-center gap-3 mb-6"
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
+        {/* Two column comparison - asymmetric */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-4">
+          {/* Left: pain */}
+          <div className="lg:col-span-5">
+            <motion.p
+              className="text-[13px] font-semibold uppercase tracking-[0.1em] text-dark/25 mb-8"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.4 }}
+              transition={{ duration: 0.5, ease: EASE }}
             >
-              <div className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0">
-                <X className="w-5 h-5 text-red-500" />
-              </div>
-              <h3 className="text-xl font-bold text-dark">You, right now</h3>
-            </motion.div>
-            <div className="space-y-4">
+              You, right now
+            </motion.p>
+            <div className="space-y-0">
               {painPoints.map((point, i) => (
                 <motion.div
                   key={i}
-                  custom={i}
-                  variants={cardVariants}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  className="bg-white rounded-xl p-5 border border-red-100 shadow-sm"
+                  className="py-5 border-t border-dark/[0.06] group"
+                  initial={{ opacity: 0, x: -16 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: '-40px' }}
+                  transition={{ delay: i * 0.08, duration: 0.6, ease: EASE }}
                 >
-                  <p className="text-gray-medium leading-relaxed text-[15px]">{point}</p>
+                  <div className="flex gap-4">
+                    <span className="text-[12px] font-mono text-dark/15 mt-0.5 flex-shrink-0">{point.num}</span>
+                    <p className="text-dark/50 text-[15px] leading-[1.65] group-hover:text-dark/70 transition-colors duration-300">
+                      {point.text}
+                    </p>
+                  </div>
                 </motion.div>
               ))}
             </div>
           </div>
 
-          <div>
+          {/* Divider - visible on desktop */}
+          <div className="hidden lg:flex lg:col-span-2 justify-center items-center">
             <motion.div
-              className="flex items-center gap-3 mb-6"
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              className="w-px h-full bg-gradient-to-b from-transparent via-primary/15 to-transparent"
+              initial={{ scaleY: 0 }}
+              whileInView={{ scaleY: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.4 }}
+              transition={{ duration: 1, ease: EASE }}
+            />
+          </div>
+
+          {/* Right: relief */}
+          <div className="lg:col-span-5">
+            <motion.p
+              className="text-[13px] font-semibold uppercase tracking-[0.1em] text-primary/60 mb-8"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, ease: EASE }}
             >
-              <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
-                <Check className="w-5 h-5 text-green-600" />
-              </div>
-              <h3 className="text-xl font-bold text-dark">You, with Zytheq</h3>
-            </motion.div>
-            <div className="space-y-4">
+              You, with Zytheq
+            </motion.p>
+            <div className="space-y-0">
               {reliefPoints.map((point, i) => (
                 <motion.div
                   key={i}
-                  custom={i}
-                  variants={cardVariants}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  className="bg-white rounded-xl p-5 border border-green-100 shadow-sm"
+                  className="py-5 border-t border-primary/[0.08] group"
+                  initial={{ opacity: 0, x: 16 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: '-40px' }}
+                  transition={{ delay: i * 0.08, duration: 0.6, ease: EASE }}
                 >
-                  <p className="text-gray-medium leading-relaxed text-[15px]">{point}</p>
+                  <div className="flex gap-4">
+                    <span className="text-[12px] font-mono text-primary/30 mt-0.5 flex-shrink-0">{point.num}</span>
+                    <p className="text-dark/70 text-[15px] leading-[1.65] group-hover:text-dark transition-colors duration-300">
+                      {point.text}
+                    </p>
+                  </div>
                 </motion.div>
               ))}
             </div>

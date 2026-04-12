@@ -10,7 +10,7 @@ export default function DotPattern({ className, variant = 'primary' }: DotPatter
     <div
       className={cn(
         'absolute inset-0 pointer-events-none',
-        variant === 'primary' ? 'dot-pattern' : 'dot-pattern-accent',
+        variant === 'primary' ? 'dot-grid opacity-[0.035]' : 'dot-grid-accent opacity-[0.05]',
         className
       )}
       aria-hidden="true"

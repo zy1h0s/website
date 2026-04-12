@@ -3,6 +3,8 @@
 import { motion } from 'framer-motion'
 import StarRating from '@/components/ui/StarRating'
 
+const EASE = [0.22, 1, 0.36, 1] as const
+
 interface RatingBreakdownProps {
   reviews: { rating: number }[]
 }
@@ -17,37 +19,33 @@ export default function RatingBreakdown({ reviews }: RatingBreakdownProps) {
 
   return (
     <motion.div
-      className="bg-white rounded-2xl p-6 sm:p-8 border border-gray-border"
-      initial={{ opacity: 0, y: 20 }}
+      className="grid grid-cols-1 sm:grid-cols-[auto_1fr] gap-10 sm:gap-16 items-center"
+      initial={{ opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: 0.7, ease: EASE }}
     >
-      <div className="flex flex-col sm:flex-row sm:items-center gap-6 sm:gap-10 mb-6">
-        <div className="text-center sm:text-left">
-          <div className="text-5xl font-bold text-dark font-display">{avg.toFixed(1)}</div>
-          <div className="mt-1">
-            <StarRating rating={Math.round(avg)} size="md" />
-          </div>
-          <p className="text-sm text-gray-medium mt-1">Based on {total}+ reviews</p>
-        </div>
+      <div className="text-center sm:text-left">
+        <div className="text-[4rem] font-display font-semibold text-dark tracking-[-0.04em] leading-none">{avg.toFixed(1)}</div>
+        <div className="mt-2"><StarRating rating={Math.round(avg)} size="md" /></div>
+        <p className="text-[13px] text-dark/30 mt-2 font-medium">Based on {total}+ reviews</p>
+      </div>
 
-        <div className="flex-1 space-y-2">
-          {breakdown.map((b) => (
-            <div key={b.star} className="flex items-center gap-3">
-              <span className="text-sm font-medium text-dark w-3">{b.star}</span>
-              <div className="flex-1 h-2.5 bg-gray-light rounded-full overflow-hidden">
-                <motion.div
-                  className="h-full bg-accent rounded-full"
-                  initial={{ width: 0 }}
-                  whileInView={{ width: `${b.percentage}%` }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.8, delay: 0.2 }}
-                />
-              </div>
-              <span className="text-sm text-gray-medium w-10 text-right">{b.percentage}%</span>
+      <div className="space-y-3">
+        {breakdown.map((b, i) => (
+          <div key={b.star} className="flex items-center gap-4">
+            <span className="text-[13px] font-medium text-dark/30 w-3 text-right">{b.star}</span>
+            <div className="flex-1 h-1.5 bg-dark/[0.04] rounded-full overflow-hidden">
+              <motion.div
+                className="h-full bg-accent rounded-full"
+                initial={{ width: 0 }}
+                whileInView={{ width: `${b.percentage}%` }}
+                viewport={{ once: true }}
+                transition={{ duration: 1, delay: 0.3 + i * 0.05, ease: EASE }}
+              />
             </div>
-          ))}
-        </div>
+            <span className="text-[12px] text-dark/25 w-8 text-right">{b.percentage}%</span>
+          </div>
+        ))}
       </div>
     </motion.div>
   )

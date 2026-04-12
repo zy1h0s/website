@@ -7,26 +7,20 @@ import Input from '@/components/ui/Input'
 import Textarea from '@/components/ui/Textarea'
 import Select from '@/components/ui/Select'
 import Button from '@/components/ui/Button'
-import { validateEmail, validatePhone, validateUrl } from '@/lib/utils'
-import { cn } from '@/lib/utils'
+import { validateEmail, validatePhone, validateUrl, cn } from '@/lib/utils'
+
+const EASE = [0.22, 1, 0.36, 1] as const
 
 const salaryRanges = [
-  { value: '40-60', label: '$40,000 - $60,000' },
-  { value: '60-80', label: '$60,000 - $80,000' },
-  { value: '80-100', label: '$80,000 - $100,000' },
-  { value: '100-130', label: '$100,000 - $130,000' },
-  { value: '130-160', label: '$130,000 - $160,000' },
-  { value: '160-200', label: '$160,000 - $200,000' },
-  { value: '200+', label: '$200,000+' },
-  { value: 'flexible', label: 'Flexible / Open to discuss' },
+  { value: '40-60', label: '$40,000 - $60,000' }, { value: '60-80', label: '$60,000 - $80,000' },
+  { value: '80-100', label: '$80,000 - $100,000' }, { value: '100-130', label: '$100,000 - $130,000' },
+  { value: '130-160', label: '$130,000 - $160,000' }, { value: '160-200', label: '$160,000 - $200,000' },
+  { value: '200+', label: '$200,000+' }, { value: 'flexible', label: 'Flexible / Open to discuss' },
 ]
 
 const experienceLevels = [
-  { value: '0-1', label: '0-1 years' },
-  { value: '1-3', label: '1-3 years' },
-  { value: '3-5', label: '3-5 years' },
-  { value: '5-10', label: '5-10 years' },
-  { value: '10+', label: '10+ years' },
+  { value: '0-1', label: '0-1 years' }, { value: '1-3', label: '1-3 years' },
+  { value: '3-5', label: '3-5 years' }, { value: '5-10', label: '5-10 years' }, { value: '10+', label: '10+ years' },
 ]
 
 export default function JobSeekerForm() {
@@ -34,17 +28,8 @@ export default function JobSeekerForm() {
   const [submitted, setSubmitted] = useState(false)
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    linkedin: '',
-    currentRole: '',
-    experience: '',
-    targetRoles: '',
-    locations: '',
-    salary: '',
-    notes: '',
-    agreement: false,
+    name: '', email: '', phone: '', linkedin: '', currentRole: '', experience: '',
+    targetRoles: '', locations: '', salary: '', notes: '', agreement: false,
   })
 
   const update = (field: string, value: string | boolean) => {
@@ -53,260 +38,128 @@ export default function JobSeekerForm() {
   }
 
   const validateStep = (s: number) => {
-    const newErrors: Record<string, string> = {}
-
+    const e: Record<string, string> = {}
     if (s === 1) {
-      if (!formData.name.trim()) newErrors.name = 'Name is required'
-      if (!formData.email) newErrors.email = 'Email is required'
-      else if (!validateEmail(formData.email)) newErrors.email = 'Please enter a valid email'
-      if (!formData.phone) newErrors.phone = 'Phone is required'
-      else if (!validatePhone(formData.phone)) newErrors.phone = 'Please enter a valid phone number'
-      if (formData.linkedin && !validateUrl(formData.linkedin)) newErrors.linkedin = 'Please enter a valid URL'
+      if (!formData.name.trim()) e.name = 'Name is required'
+      if (!formData.email) e.email = 'Email is required'
+      else if (!validateEmail(formData.email)) e.email = 'Please enter a valid email'
+      if (!formData.phone) e.phone = 'Phone is required'
+      else if (!validatePhone(formData.phone)) e.phone = 'Please enter a valid phone number'
+      if (formData.linkedin && !validateUrl(formData.linkedin)) e.linkedin = 'Please enter a valid URL'
     }
-
     if (s === 2) {
-      if (!formData.currentRole.trim()) newErrors.currentRole = 'Current role is required'
-      if (!formData.experience) newErrors.experience = 'Please select your experience level'
-      if (!formData.targetRoles.trim()) newErrors.targetRoles = 'Please enter at least one target role'
+      if (!formData.currentRole.trim()) e.currentRole = 'Current role is required'
+      if (!formData.experience) e.experience = 'Please select your experience level'
+      if (!formData.targetRoles.trim()) e.targetRoles = 'Please enter at least one target role'
     }
-
-    if (s === 3) {
-      if (!formData.agreement) newErrors.agreement = 'Please agree to the terms'
-    }
-
-    setErrors(newErrors)
-    return Object.keys(newErrors).length === 0
+    if (s === 3) { if (!formData.agreement) e.agreement = 'Please agree to the terms' }
+    setErrors(e)
+    return Object.keys(e).length === 0
   }
 
-  const nextStep = () => {
-    if (validateStep(step)) setStep(step + 1)
-  }
-
+  const nextStep = () => { if (validateStep(step)) setStep(step + 1) }
   const prevStep = () => setStep(step - 1)
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+  const handleSubmit = async (ev: React.FormEvent) => {
+    ev.preventDefault()
     if (!validateStep(3)) return
-    // TODO: POST to /api/signup/job-seeker when backend is ready
     setSubmitted(true)
   }
 
   if (submitted) {
     return (
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        className="text-center py-16 bg-white rounded-2xl border border-gray-border"
-      >
-        <div className="w-20 h-20 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-6">
-          <CheckCircle className="w-10 h-10 text-green-600" />
+      <motion.div initial={{ opacity: 0, scale: 0.97 }} animate={{ opacity: 1, scale: 1 }}
+        className="text-center py-20 rounded-2xl ring-1 ring-dark/[0.04] bg-surface">
+        <div className="w-14 h-14 rounded-full bg-emerald-50 flex items-center justify-center mx-auto mb-5">
+          <CheckCircle className="w-6 h-6 text-emerald-600" />
         </div>
-        <h3 className="text-2xl font-bold text-dark mb-3">Welcome to Zytheq</h3>
-        <p className="text-gray-medium max-w-md mx-auto">
-          Our team will review your profile and reach out within 48 hours.
-          Keep an eye on your email.
-        </p>
+        <h3 className="text-xl font-semibold text-dark mb-2 tracking-[-0.02em]">Welcome to Zytheq</h3>
+        <p className="text-dark/40 text-[15px] max-w-sm mx-auto">Our team will review your profile and reach out within 48 hours.</p>
       </motion.div>
     )
   }
 
   return (
-    <div className="bg-white rounded-2xl p-6 sm:p-8 border border-gray-border">
-      {/* Progress bar */}
-      <div className="mb-8">
-        <div className="flex items-center justify-between mb-3">
+    <div>
+      {/* Progress */}
+      <div className="mb-10">
+        <div className="flex items-center gap-2 mb-4">
           {[1, 2, 3].map((s) => (
             <div key={s} className="flex items-center gap-2">
               <div className={cn(
-                'w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-colors',
-                s <= step ? 'bg-primary text-white' : 'bg-gray-light text-gray-medium'
-              )}>
-                {s}
-              </div>
-              <span className="hidden sm:inline text-sm font-medium text-gray-medium">
-                {s === 1 ? 'Basics' : s === 2 ? 'Career' : 'Final'}
-              </span>
+                'w-7 h-7 rounded-full flex items-center justify-center text-[12px] font-semibold transition-all duration-500',
+                s <= step ? 'bg-dark text-white' : 'ring-1 ring-dark/10 text-dark/25'
+              )}>{s}</div>
+              {s < 3 && <div className={cn('w-8 sm:w-12 h-px transition-colors duration-500', s < step ? 'bg-dark' : 'bg-dark/10')} />}
             </div>
           ))}
-        </div>
-        <div className="h-1.5 bg-gray-light rounded-full overflow-hidden">
-          <motion.div
-            className="h-full bg-primary rounded-full"
-            animate={{ width: `${(step / 3) * 100}%` }}
-            transition={{ duration: 0.3 }}
-          />
+          <span className="ml-3 text-[13px] text-dark/30 font-medium">
+            {step === 1 ? 'Basics' : step === 2 ? 'Career' : 'Final'}
+          </span>
         </div>
       </div>
 
       <form onSubmit={handleSubmit}>
         <AnimatePresence mode="wait">
           {step === 1 && (
-            <motion.div
-              key="step1"
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
-              transition={{ duration: 0.3 }}
-              className="space-y-5"
-            >
-              <h3 className="text-xl font-bold text-dark">Your information</h3>
-              <Input
-                label="Full name"
-                required
-                placeholder="John Smith"
-                value={formData.name}
-                onChange={(e) => update('name', e.target.value)}
-                error={errors.name}
-              />
-              <Input
-                label="Email"
-                type="email"
-                required
-                placeholder="you@example.com"
-                value={formData.email}
-                onChange={(e) => update('email', e.target.value)}
-                error={errors.email}
-              />
-              <Input
-                label="Phone"
-                type="tel"
-                required
-                placeholder="+1 (555) 123-4567"
-                value={formData.phone}
-                onChange={(e) => update('phone', e.target.value)}
-                error={errors.phone}
-              />
-              <Input
-                label="LinkedIn URL"
-                type="url"
-                placeholder="https://linkedin.com/in/yourprofile"
-                value={formData.linkedin}
-                onChange={(e) => update('linkedin', e.target.value)}
-                error={errors.linkedin}
-                helperText="Optional, but helps us get started faster"
-              />
-
-              <div className="flex justify-end pt-2">
-                <Button type="button" onClick={nextStep} variant="primary">
-                  Next <ArrowRight className="w-4 h-4 ml-2" />
-                </Button>
+            <motion.div key="s1" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.4, ease: EASE }} className="space-y-7">
+              <Input label="Full name" required placeholder="John Smith" value={formData.name}
+                onChange={(e) => update('name', e.target.value)} error={errors.name} />
+              <Input label="Email" type="email" required placeholder="you@example.com" value={formData.email}
+                onChange={(e) => update('email', e.target.value)} error={errors.email} />
+              <Input label="Phone" type="tel" required placeholder="+1 (555) 123-4567" value={formData.phone}
+                onChange={(e) => update('phone', e.target.value)} error={errors.phone} />
+              <Input label="LinkedIn URL" type="url" placeholder="https://linkedin.com/in/yourprofile" value={formData.linkedin}
+                onChange={(e) => update('linkedin', e.target.value)} error={errors.linkedin} helperText="Optional, but helps us start faster" />
+              <div className="flex justify-end pt-4">
+                <Button type="button" onClick={nextStep} variant="dark" icon={<ArrowRight className="w-3.5 h-3.5" />}>Next</Button>
               </div>
             </motion.div>
           )}
-
           {step === 2 && (
-            <motion.div
-              key="step2"
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
-              transition={{ duration: 0.3 }}
-              className="space-y-5"
-            >
-              <h3 className="text-xl font-bold text-dark">Career details</h3>
-              <Input
-                label="Current role/field"
-                required
-                placeholder="e.g., Software Engineer, Marketing Manager"
-                value={formData.currentRole}
-                onChange={(e) => update('currentRole', e.target.value)}
-                error={errors.currentRole}
-              />
-              <Select
-                label="Years of experience"
-                required
-                options={experienceLevels}
-                placeholder="Select range"
-                value={formData.experience}
-                onChange={(e) => update('experience', e.target.value)}
-                error={errors.experience}
-              />
-              <Input
-                label="Target roles"
-                required
-                placeholder="e.g., Product Manager, Senior Developer, Data Analyst"
-                value={formData.targetRoles}
-                onChange={(e) => update('targetRoles', e.target.value)}
-                error={errors.targetRoles}
-                helperText="Separate multiple roles with commas"
-              />
-              <Input
-                label="Preferred locations"
-                placeholder="e.g., Remote, NYC, San Francisco, Austin"
-                value={formData.locations}
-                onChange={(e) => update('locations', e.target.value)}
-              />
-              <Select
-                label="Salary range"
-                options={salaryRanges}
-                placeholder="Select range"
-                value={formData.salary}
-                onChange={(e) => update('salary', e.target.value)}
-              />
-
-              <div className="flex justify-between pt-2">
-                <Button type="button" onClick={prevStep} variant="ghost">
-                  <ArrowLeft className="w-4 h-4 mr-2" /> Back
-                </Button>
-                <Button type="button" onClick={nextStep} variant="primary">
-                  Next <ArrowRight className="w-4 h-4 ml-2" />
-                </Button>
+            <motion.div key="s2" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.4, ease: EASE }} className="space-y-7">
+              <Input label="Current role/field" required placeholder="e.g., Software Engineer" value={formData.currentRole}
+                onChange={(e) => update('currentRole', e.target.value)} error={errors.currentRole} />
+              <Select label="Years of experience" required options={experienceLevels} placeholder="Select range" value={formData.experience}
+                onChange={(e) => update('experience', e.target.value)} error={errors.experience} />
+              <Input label="Target roles" required placeholder="e.g., Product Manager, Senior Developer" value={formData.targetRoles}
+                onChange={(e) => update('targetRoles', e.target.value)} error={errors.targetRoles} helperText="Separate multiple roles with commas" />
+              <Input label="Preferred locations" placeholder="e.g., Remote, NYC, Austin" value={formData.locations}
+                onChange={(e) => update('locations', e.target.value)} />
+              <Select label="Salary range" options={salaryRanges} placeholder="Select range" value={formData.salary}
+                onChange={(e) => update('salary', e.target.value)} />
+              <div className="flex justify-between pt-4">
+                <Button type="button" onClick={prevStep} variant="ghost" icon={<ArrowLeft className="w-3.5 h-3.5" />} iconPosition="left">Back</Button>
+                <Button type="button" onClick={nextStep} variant="dark" icon={<ArrowRight className="w-3.5 h-3.5" />}>Next</Button>
               </div>
             </motion.div>
           )}
-
           {step === 3 && (
-            <motion.div
-              key="step3"
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
-              transition={{ duration: 0.3 }}
-              className="space-y-5"
-            >
-              <h3 className="text-xl font-bold text-dark">Almost there</h3>
-
+            <motion.div key="s3" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.4, ease: EASE }} className="space-y-7">
               <div>
-                <label className="block text-sm font-medium text-dark-secondary mb-1.5">
-                  Upload your resume
-                </label>
-                <input
-                  type="file"
-                  accept=".pdf,.doc,.docx"
-                  className="w-full text-sm text-gray-medium file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-primary file:text-white hover:file:bg-primary-dark file:cursor-pointer file:transition-colors"
-                />
-                <p className="mt-1.5 text-sm text-gray-medium">PDF or Word document, max 5MB</p>
+                <label className="block text-[13px] font-medium mb-2 tracking-[-0.01em] uppercase text-dark/50">Upload your resume</label>
+                <input type="file" accept=".pdf,.doc,.docx" className="w-full text-sm text-dark/40" />
+                <p className="mt-2 text-[13px] text-dark/30">PDF or Word document, max 5MB</p>
               </div>
-
-              <Textarea
-                label="Anything else we should know?"
-                placeholder="Tell us about your situation, preferences, or anything that would help us serve you better..."
-                value={formData.notes}
-                onChange={(e) => update('notes', e.target.value)}
-              />
-
+              <Textarea label="Anything else we should know?" placeholder="Your situation, preferences, or anything helpful..."
+                value={formData.notes} onChange={(e) => update('notes', e.target.value)} />
               <div>
-                <label className="flex items-start gap-3 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={formData.agreement}
+                <label className="flex items-start gap-3 cursor-pointer group">
+                  <input type="checkbox" checked={formData.agreement}
                     onChange={(e) => update('agreement', e.target.checked)}
-                    className="mt-1 w-4 h-4 rounded border-gray-border text-primary focus:ring-primary"
-                  />
-                  <span className="text-sm text-gray-medium">
-                    I understand the Zytheq model and am willing to participate in student training sessions as part of the value exchange.
+                    className="mt-0.5 w-4 h-4 rounded border-dark/15 text-primary focus:ring-primary/30 cursor-pointer" />
+                  <span className="text-[14px] text-dark/40 group-hover:text-dark/55 transition-colors">
+                    I understand the Zytheq model and am willing to participate in student training sessions.
                   </span>
                 </label>
-                {errors.agreement && <p className="mt-1.5 text-sm text-red-600">{errors.agreement}</p>}
+                {errors.agreement && <p className="mt-2 text-[13px] text-red-500 font-medium">{errors.agreement}</p>}
               </div>
-
-              <div className="flex justify-between pt-2">
-                <Button type="button" onClick={prevStep} variant="ghost">
-                  <ArrowLeft className="w-4 h-4 mr-2" /> Back
-                </Button>
-                <Button type="submit" variant="accent" size="lg">
-                  Submit Application
-                </Button>
+              <div className="flex justify-between pt-4">
+                <Button type="button" onClick={prevStep} variant="ghost" icon={<ArrowLeft className="w-3.5 h-3.5" />} iconPosition="left">Back</Button>
+                <Button type="submit" variant="accent" size="lg">Submit Application</Button>
               </div>
             </motion.div>
           )}

@@ -5,10 +5,10 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X } from 'lucide-react'
 import { NAV_LINKS } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 import Button from '@/components/ui/Button'
+import { ArrowRight } from 'lucide-react'
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
@@ -17,144 +17,153 @@ export default function Navbar() {
   const isHome = pathname === '/'
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20)
-    }
+    const handleScroll = () => setScrolled(window.scrollY > 40)
     window.addEventListener('scroll', handleScroll, { passive: true })
     handleScroll()
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  useEffect(() => {
-    setIsOpen(false)
-  }, [pathname])
+  useEffect(() => { setIsOpen(false) }, [pathname])
 
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = ''
-    }
-    return () => {
-      document.body.style.overflow = ''
-    }
+    document.body.style.overflow = isOpen ? 'hidden' : ''
+    return () => { document.body.style.overflow = '' }
   }, [isOpen])
 
-  const navBg = scrolled || !isHome
-    ? 'bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-border/50'
-    : 'bg-transparent'
-
-  const linkColor = scrolled || !isHome ? 'text-dark-secondary' : 'text-white'
-  const linkHover = scrolled || !isHome ? 'hover:text-primary' : 'hover:text-accent'
+  const showSolid = scrolled || !isHome
 
   return (
     <>
       <nav
         className={cn(
-          'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
-          navBg
+          'fixed top-0 left-0 right-0 z-50 transition-all duration-500',
+          showSolid
+            ? 'glass border-b border-dark/[0.04]'
+            : 'bg-transparent'
         )}
         role="navigation"
         aria-label="Main navigation"
       >
-        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-[72px]">
+        <div className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10">
+          <div className="flex items-center justify-between h-[68px] sm:h-[76px]">
+            {/* Logo */}
             <Link href="/" className="flex-shrink-0 relative z-10" aria-label="Zytheq home">
               <Image
                 src="/z.png"
                 alt="Zytheq"
-                width={40}
-                height={40}
-                className="w-9 h-9 sm:w-10 sm:h-10"
+                width={36}
+                height={36}
+                className="w-8 h-8 sm:w-9 sm:h-9"
                 priority
               />
             </Link>
 
-            <div className="hidden lg:flex items-center gap-8">
-              {NAV_LINKS.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={cn(
-                    'text-[15px] font-medium transition-colors duration-200',
-                    linkColor,
-                    linkHover,
-                    pathname === link.href && (scrolled || !isHome ? 'text-primary' : 'text-accent')
-                  )}
-                >
-                  {link.label}
-                </Link>
-              ))}
+            {/* Desktop nav - centered */}
+            <div className="hidden lg:flex items-center gap-1 absolute left-1/2 -translate-x-1/2">
+              {NAV_LINKS.map((link) => {
+                const isActive = pathname === link.href
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className={cn(
+                      'relative px-4 py-2 text-[14px] font-medium tracking-[-0.01em] transition-colors duration-200 rounded-full',
+                      showSolid
+                        ? isActive ? 'text-primary bg-primary/5' : 'text-dark/55 hover:text-dark hover:bg-dark/[0.03]'
+                        : isActive ? 'text-white bg-white/10' : 'text-white/60 hover:text-white hover:bg-white/[0.06]'
+                    )}
+                  >
+                    {link.label}
+                  </Link>
+                )
+              })}
             </div>
 
-            <div className="hidden lg:block">
+            {/* Desktop CTA */}
+            <div className="hidden lg:block relative z-10">
               <Button
-                variant="accent"
+                variant={showSolid ? 'dark' : 'accent'}
                 size="sm"
                 href="/get-started"
+                icon={<ArrowRight className="w-3.5 h-3.5" />}
               >
                 Get Started
               </Button>
             </div>
 
+            {/* Mobile menu button */}
             <button
               onClick={() => setIsOpen(!isOpen)}
               className={cn(
-                'lg:hidden relative z-10 p-2 rounded-lg transition-colors',
-                isOpen ? 'text-white' : linkColor
+                'lg:hidden relative z-[60] w-10 h-10 flex flex-col items-center justify-center gap-[5px] rounded-full transition-colors',
+                isOpen ? 'bg-white/10' : showSolid ? 'bg-dark/5' : 'bg-white/10'
               )}
               aria-label={isOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={isOpen}
             >
-              {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              <span className={cn(
+                'w-5 h-[1.5px] rounded-full transition-all duration-300',
+                isOpen ? 'bg-white rotate-45 translate-y-[3.25px]' : showSolid ? 'bg-dark' : 'bg-white'
+              )} />
+              <span className={cn(
+                'w-5 h-[1.5px] rounded-full transition-all duration-300',
+                isOpen ? 'bg-white -rotate-45 -translate-y-[3.25px]' : showSolid ? 'bg-dark' : 'bg-white'
+              )} />
             </button>
           </div>
         </div>
       </nav>
 
+      {/* Mobile menu - full takeover */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="fixed inset-0 z-40 lg:hidden bg-primary"
-            initial={{ opacity: 0, clipPath: 'circle(0% at calc(100% - 40px) 36px)' }}
-            animate={{ opacity: 1, clipPath: 'circle(150% at calc(100% - 40px) 36px)' }}
-            exit={{ opacity: 0, clipPath: 'circle(0% at calc(100% - 40px) 36px)' }}
-            transition={{ duration: 0.4, ease: 'easeInOut' }}
+            className="fixed inset-0 z-50 lg:hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
           >
-            <div className="flex flex-col items-center justify-center min-h-screen gap-6 px-6">
-              {NAV_LINKS.map((link, i) => (
-                <motion.div
-                  key={link.href}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 + i * 0.05, duration: 0.3 }}
-                >
-                  <Link
-                    href={link.href}
-                    onClick={() => setIsOpen(false)}
-                    className={cn(
-                      'text-2xl font-semibold transition-colors',
-                      pathname === link.href ? 'text-accent' : 'text-white hover:text-accent'
-                    )}
+            <motion.div
+              className="absolute inset-0 bg-primary-deeper"
+              initial={{ scaleY: 0 }}
+              animate={{ scaleY: 1 }}
+              exit={{ scaleY: 0 }}
+              style={{ transformOrigin: 'top' }}
+              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            />
+            <div className="relative flex flex-col justify-between min-h-screen px-8 pt-28 pb-12">
+              <div className="space-y-1">
+                {NAV_LINKS.map((link, i) => (
+                  <motion.div
+                    key={link.href}
+                    initial={{ opacity: 0, x: -24 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.15 + i * 0.06, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                   >
-                    {link.label}
-                  </Link>
-                </motion.div>
-              ))}
+                    <Link
+                      href={link.href}
+                      onClick={() => setIsOpen(false)}
+                      className={cn(
+                        'block py-3 text-[2rem] font-display font-semibold tracking-[-0.03em] transition-colors',
+                        pathname === link.href ? 'text-accent' : 'text-white/70 hover:text-white'
+                      )}
+                    >
+                      {link.label}
+                    </Link>
+                  </motion.div>
+                ))}
+              </div>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4, duration: 0.3 }}
-                className="mt-4"
+                transition={{ delay: 0.5, duration: 0.5 }}
+                className="space-y-3"
               >
-                <Button
-                  variant="accent"
-                  size="lg"
-                  href="/get-started"
-                  className="min-w-[200px]"
-                >
+                <Button variant="accent" size="lg" href="/get-started" fullWidth icon={<ArrowRight className="w-4 h-4" />}>
                   Get Started
                 </Button>
+                <p className="text-white/25 text-[13px] text-center pt-2">hello@zytheq.com</p>
               </motion.div>
             </div>
           </motion.div>

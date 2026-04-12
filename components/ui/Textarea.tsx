@@ -19,48 +19,39 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
         <label
           htmlFor={inputId}
           className={cn(
-            'block text-sm font-medium mb-1.5 transition-colors',
-            focused ? 'text-primary' : 'text-dark-secondary',
-            error && 'text-red-600'
+            'block text-[13px] font-medium mb-2 tracking-[-0.01em] uppercase transition-colors duration-200',
+            focused ? 'text-primary' : 'text-dark/50',
+            error && 'text-red-500'
           )}
         >
           {label}
-          {required && <span className="text-red-500 ml-0.5">*</span>}
+          {required && <span className="text-accent ml-0.5">*</span>}
         </label>
         <textarea
           ref={ref}
           id={inputId}
           required={required}
           className={cn(
-            'w-full px-4 py-3 rounded-lg border bg-white text-dark transition-all duration-200 resize-y min-h-[120px]',
-            'placeholder:text-gray-medium/60',
-            'focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary',
+            'w-full px-0 py-3 bg-transparent text-dark text-base transition-all duration-200 resize-y min-h-[120px]',
+            'border-b-2 rounded-none',
+            'placeholder:text-dark/25',
+            'focus:outline-none',
             error
-              ? 'border-red-400 focus:ring-red-200 focus:border-red-400'
-              : 'border-gray-border hover:border-gray-medium/40',
+              ? 'border-red-400 focus:border-red-500'
+              : 'border-dark/10 focus:border-primary hover:border-dark/25',
             className
           )}
-          onFocus={(e) => {
-            setFocused(true)
-            props.onFocus?.(e)
-          }}
-          onBlur={(e) => {
-            setFocused(false)
-            props.onBlur?.(e)
-          }}
+          onFocus={(e) => { setFocused(true); props.onFocus?.(e) }}
+          onBlur={(e) => { setFocused(false); props.onBlur?.(e) }}
           aria-invalid={!!error}
           aria-describedby={error ? `${inputId}-error` : helperText ? `${inputId}-helper` : undefined}
           {...props}
         />
         {error && (
-          <p id={`${inputId}-error`} className="mt-1.5 text-sm text-red-600" role="alert">
-            {error}
-          </p>
+          <p id={`${inputId}-error`} className="mt-2 text-[13px] text-red-500 font-medium" role="alert">{error}</p>
         )}
         {helperText && !error && (
-          <p id={`${inputId}-helper`} className="mt-1.5 text-sm text-gray-medium">
-            {helperText}
-          </p>
+          <p id={`${inputId}-helper`} className="mt-2 text-[13px] text-dark/40">{helperText}</p>
         )}
       </div>
     )
@@ -68,5 +59,4 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
 )
 
 Textarea.displayName = 'Textarea'
-
 export default Textarea

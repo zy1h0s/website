@@ -11,9 +11,9 @@ interface StarRatingProps {
 }
 
 const sizes = {
-  sm: 'w-4 h-4',
-  md: 'w-5 h-5',
-  lg: 'w-6 h-6',
+  sm: 'w-3.5 h-3.5',
+  md: 'w-4.5 h-4.5',
+  lg: 'w-5.5 h-5.5',
 }
 
 export default function StarRating({ rating, onChange, size = 'md', interactive = false }: StarRatingProps) {
@@ -26,8 +26,8 @@ export default function StarRating({ rating, onChange, size = 'md', interactive 
           disabled={!interactive}
           onClick={() => interactive && onChange?.(star)}
           className={cn(
-            'transition-colors',
-            interactive && 'cursor-pointer hover:scale-110 active:scale-95',
+            'transition-all duration-150',
+            interactive && 'cursor-pointer hover:scale-125',
             !interactive && 'cursor-default'
           )}
           aria-label={interactive ? `${star} star${star !== 1 ? 's' : ''}` : undefined}
@@ -39,8 +39,8 @@ export default function StarRating({ rating, onChange, size = 'md', interactive 
             className={cn(
               sizes[size],
               star <= rating
-                ? 'fill-accent text-accent'
-                : 'fill-transparent text-gray-border'
+                ? 'fill-accent text-accent drop-shadow-[0_0_3px_rgba(254,184,0,0.3)]'
+                : 'fill-dark/8 text-dark/8'
             )}
           />
         </button>

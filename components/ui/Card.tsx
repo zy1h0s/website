@@ -7,28 +7,21 @@ interface CardProps {
   children: React.ReactNode
   className?: string
   hover?: boolean
-  padding?: 'sm' | 'md' | 'lg'
+  delay?: number
 }
 
-const paddingStyles = {
-  sm: 'p-4',
-  md: 'p-6',
-  lg: 'p-8',
-}
-
-export default function Card({ children, className, hover = true, padding = 'md' }: CardProps) {
+export default function Card({ children, className, hover = true, delay = 0 }: CardProps) {
   return (
     <motion.div
       className={cn(
-        'bg-white rounded-2xl border border-gray-border',
-        hover && 'transition-all duration-300 hover:shadow-lg hover:shadow-primary/5 hover:-translate-y-1',
-        paddingStyles[padding],
+        'relative bg-white rounded-2xl',
+        hover && 'transition-shadow duration-500 hover:shadow-[0_8px_40px_-12px_rgba(21,75,168,0.12)]',
         className
       )}
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 32 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-50px' }}
-      transition={{ duration: 0.4, ease: 'easeOut' }}
+      viewport={{ once: true, margin: '-80px' }}
+      transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }}
     >
       {children}
     </motion.div>

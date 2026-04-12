@@ -5,6 +5,8 @@ import { FileText, Globe, Target, Send, MessageSquare, BarChart3 } from 'lucide-
 import SectionHeading from '@/components/ui/SectionHeading'
 import { SERVICES } from '@/lib/constants'
 
+const EASE = [0.22, 1, 0.36, 1] as const
+
 const iconMap: Record<string, React.ElementType> = {
   FileText,
   Linkedin: Globe,
@@ -14,32 +16,55 @@ const iconMap: Record<string, React.ElementType> = {
   BarChart3,
 }
 
+// Bento grid layout - each card gets a unique span
+const gridConfig = [
+  'sm:col-span-2 lg:col-span-4',   // wide
+  'sm:col-span-1 lg:col-span-2',   // normal
+  'sm:col-span-1 lg:col-span-2',   // normal
+  'sm:col-span-1 lg:col-span-2',   // normal
+  'sm:col-span-1 lg:col-span-2',   // normal
+  'sm:col-span-2 lg:col-span-4',   // wide
+]
+
 export default function Services() {
   return (
-    <section className="py-20 sm:py-28 lg:py-32 bg-gray-light">
-      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="relative py-24 sm:py-32 lg:py-40 bg-dark overflow-hidden grain">
+      {/* Dot grid accent */}
+      <div className="absolute top-0 left-0 w-48 h-48 dot-grid-accent opacity-[0.08] pointer-events-none" aria-hidden="true" />
+
+      <div className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10">
         <SectionHeading
-          title="What we actually do for you"
-          subtitle="Not vague promises. These are the specific things our team handles while you focus on what matters."
+          tag="What we do"
+          title="What we actually handle for you"
+          subtitle="Not vague promises. These are the specific things our team does while you focus on what matters."
+          light
         />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-8 gap-4">
           {SERVICES.map((service, i) => {
             const Icon = iconMap[service.icon]
+            const isWide = i === 0 || i === 5
             return (
               <motion.div
                 key={service.title}
-                className="bg-white rounded-2xl p-7 border border-gray-border transition-all duration-300 hover:shadow-lg hover:shadow-primary/5 hover:-translate-y-1 group"
-                initial={{ opacity: 0, y: 20 }}
+                className={`group relative rounded-2xl p-7 sm:p-8 transition-all duration-500 ${gridConfig[i]}
+                  bg-white/[0.04] ring-1 ring-white/[0.06] hover:bg-white/[0.07] hover:ring-white/[0.10]`}
+                initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-50px' }}
-                transition={{ delay: i * 0.08, duration: 0.4, ease: 'easeOut' }}
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ delay: i * 0.06, duration: 0.7, ease: EASE }}
               >
-                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary group-hover:text-white transition-colors duration-300">
-                  <Icon className="w-5 h-5 text-primary group-hover:text-white transition-colors duration-300" />
+                <div className={`flex ${isWide ? 'flex-row items-start gap-6' : 'flex-col'}`}>
+                  <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center flex-shrink-0 mb-5 group-hover:bg-accent/20 transition-colors duration-500">
+                    <Icon className="w-4.5 h-4.5 text-accent" />
+                  </div>
+                  <div>
+                    <h3 className="text-white font-semibold tracking-[-0.01em] mb-2">{service.title}</h3>
+                    <p className="text-white/35 text-[14px] leading-[1.7] group-hover:text-white/50 transition-colors duration-500">
+                      {service.description}
+                    </p>
+                  </div>
                 </div>
-                <h3 className="text-lg font-bold text-dark mb-2">{service.title}</h3>
-                <p className="text-gray-medium leading-relaxed text-[15px]">{service.description}</p>
               </motion.div>
             )
           })}

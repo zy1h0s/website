@@ -1,90 +1,123 @@
+'use client'
+
 import Link from 'next/link'
 import Image from 'next/image'
-import { Globe, Share2, ExternalLink } from 'lucide-react'
+import { motion } from 'framer-motion'
+import { ArrowUpRight } from 'lucide-react'
 
-const footerLinks = {
-  Platform: [
-    { label: 'How It Works', href: '/how-it-works' },
-    { label: 'For Job Seekers', href: '/get-started' },
-    { label: 'For Students', href: '/join-as-student' },
-    { label: 'Reviews', href: '/reviews' },
-  ],
-  Company: [
-    { label: 'About', href: '/about' },
-    { label: 'Contact', href: '/contact' },
-    { label: 'Privacy Policy', href: '/privacy' },
-    { label: 'Terms of Service', href: '/terms' },
-  ],
-}
-
-const socialLinks = [
-  { icon: Globe, label: 'LinkedIn', href: '#' },
-  { icon: Share2, label: 'X (Twitter)', href: '#' },
-  { icon: ExternalLink, label: 'Instagram', href: '#' },
+const footerColumns = [
+  {
+    title: 'Platform',
+    links: [
+      { label: 'How It Works', href: '/how-it-works' },
+      { label: 'For Job Seekers', href: '/get-started' },
+      { label: 'For Students', href: '/join-as-student' },
+      { label: 'Reviews', href: '/reviews' },
+    ],
+  },
+  {
+    title: 'Company',
+    links: [
+      { label: 'About', href: '/about' },
+      { label: 'Contact', href: '/contact' },
+      { label: 'Privacy Policy', href: '/privacy' },
+      { label: 'Terms of Service', href: '/terms' },
+    ],
+  },
+  {
+    title: 'Connect',
+    links: [
+      { label: 'LinkedIn', href: '#', external: true },
+      { label: 'X / Twitter', href: '#', external: true },
+      { label: 'Instagram', href: '#', external: true },
+      { label: 'hello@zytheq.com', href: 'mailto:hello@zytheq.com' },
+    ],
+  },
 ]
 
 export default function Footer() {
   return (
-    <footer className="bg-dark text-white" role="contentinfo">
-      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="py-16 lg:py-20">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
-            <div className="lg:col-span-2">
-              <div className="flex items-center gap-3 mb-4">
-                <Image
-                  src="/z.png"
-                  alt="Zytheq"
-                  width={36}
-                  height={36}
-                  className="w-9 h-9"
-                />
-                <span className="text-xl font-bold tracking-tight">Zytheq</span>
+    <footer className="relative bg-dark text-white overflow-hidden" role="contentinfo">
+      {/* Top accent line */}
+      <div className="h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent" />
+
+      <div className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10">
+        {/* Main footer */}
+        <div className="pt-20 pb-16 lg:pt-24 lg:pb-20">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-8">
+            {/* Brand column */}
+            <motion.div
+              className="lg:col-span-4"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <div className="flex items-center gap-3 mb-5">
+                <Image src="/z.png" alt="Zytheq" width={32} height={32} className="w-8 h-8" />
+                <span className="text-lg font-semibold tracking-[-0.02em]">Zytheq</span>
               </div>
-              <p className="text-white/50 text-sm max-w-xs leading-relaxed mb-6">
+              <p className="text-white/35 text-[15px] leading-relaxed max-w-xs mb-8">
                 Do great in this competitive market.
               </p>
-              <div className="flex items-center gap-3">
-                {socialLinks.map((social) => (
-                  <a
-                    key={social.label}
-                    href={social.href}
-                    className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center hover:bg-accent hover:text-dark transition-all duration-200"
-                    aria-label={social.label}
-                  >
-                    <social.icon className="w-4 h-4" />
-                  </a>
-                ))}
-              </div>
-            </div>
+              <Link
+                href="/get-started"
+                className="inline-flex items-center gap-2 text-accent text-sm font-medium hover:gap-3 transition-all duration-300"
+              >
+                Start your journey <ArrowUpRight className="w-3.5 h-3.5" />
+              </Link>
+            </motion.div>
 
-            {Object.entries(footerLinks).map(([title, links]) => (
-              <div key={title}>
-                <h3 className="font-semibold text-sm uppercase tracking-wider text-white/40 mb-4">
-                  {title}
+            {/* Link columns */}
+            {footerColumns.map((col, i) => (
+              <motion.div
+                key={col.title}
+                className="lg:col-span-2 lg:col-start-auto first:lg:col-start-7"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1 + i * 0.08, duration: 0.6 }}
+              >
+                <h3 className="text-[12px] font-semibold uppercase tracking-[0.1em] text-white/25 mb-5">
+                  {col.title}
                 </h3>
                 <ul className="space-y-3">
-                  {links.map((link) => (
-                    <li key={link.href}>
-                      <Link
-                        href={link.href}
-                        className="text-white/60 hover:text-accent transition-colors text-sm"
-                      >
-                        {link.label}
-                      </Link>
+                  {col.links.map((link) => (
+                    <li key={link.label}>
+                      {'external' in link && link.external ? (
+                        <a
+                          href={link.href}
+                          className="inline-flex items-center gap-1 text-white/50 hover:text-accent transition-colors text-[14px]"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={link.label}
+                        >
+                          {link.label}
+                          <ArrowUpRight className="w-3 h-3 opacity-50" />
+                        </a>
+                      ) : (
+                        <Link
+                          href={link.href}
+                          className="text-white/50 hover:text-accent transition-colors text-[14px]"
+                        >
+                          {link.label}
+                        </Link>
+                      )}
                     </li>
                   ))}
                 </ul>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
 
-        <div className="border-t border-white/10 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-white/30 text-sm">
+        {/* Bottom bar */}
+        <div className="border-t border-white/[0.06] py-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <p className="text-white/20 text-[13px]">
             &copy; 2025 Zytheq. All rights reserved.
           </p>
-          <p className="text-white/20 text-xs">
-            Built with purpose.
+          <p className="text-white/15 text-[12px] tracking-[0.05em] uppercase">
+            Built with purpose
           </p>
         </div>
       </div>
