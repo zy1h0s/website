@@ -62,6 +62,8 @@ const jsonLd = {
   },
 }
 
+import MobileGate from '@/components/layout/MobileGate'
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -79,6 +81,7 @@ export default function RootLayout({
         <a href="#main-content" className="skip-to-content">
           Skip to content
         </a>
+        <MobileGate />
         <ConditionalLayout>
           {children}
         </ConditionalLayout>
