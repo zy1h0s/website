@@ -57,13 +57,48 @@ export default function JobSeekerForm() {
     return Object.keys(e).length === 0
   }
 
+  const [isLoading, setIsLoading] = useState(false)
+  const [submitError, setSubmitError] = useState('')
+
   const nextStep = () => { if (validateStep(step)) setStep(step + 1) }
   const prevStep = () => setStep(step - 1)
 
   const handleSubmit = async (ev: React.FormEvent) => {
     ev.preventDefault()
     if (!validateStep(3)) return
-    setSubmitted(true)
+    
+    setIsLoading(true)
+    setSubmitError('')
+    
+    try {
+      const res = await fetch('/api/signup/job-seeker', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          linkedin_url: formData.linkedin,
+          current_title: formData.currentRole,
+          years_experience: formData.experience,
+          target_roles: formData.targetRoles,
+          preferred_locations: formData.locations,
+          salary_range: formData.salary,
+          additional_notes: formData.notes,
+        }),
+      })
+
+      if (res.ok) {
+        setSubmitted(true)
+      } else {
+        const data = await res.json()
+        setSubmitError(data.error || 'Failed to submit application')
+      }
+    } catch {
+      setSubmitError('Network error. Please try again.')
+    }
+    
+    setIsLoading(false)
   }
 
   if (submitted) {
@@ -157,9 +192,10 @@ export default function JobSeekerForm() {
                 </label>
                 {errors.agreement && <p className="mt-2 text-[13px] text-red-500 font-medium">{errors.agreement}</p>}
               </div>
+              {submitError && <p className="mt-2 text-[13px] text-red-500 font-medium text-center">{submitError}</p>}
               <div className="flex justify-between pt-4">
                 <Button type="button" onClick={prevStep} variant="ghost" icon={<ArrowLeft className="w-3.5 h-3.5" />} iconPosition="left">Back</Button>
-                <Button type="submit" variant="accent" size="lg">Submit Application</Button>
+                <Button type="submit" variant="accent" size="lg" disabled={isLoading}>{isLoading ? 'Submitting...' : 'Submit Application'}</Button>
               </div>
             </motion.div>
           )}

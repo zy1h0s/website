@@ -1,8 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter, Playfair_Display } from 'next/font/google'
 import './globals.css'
-import Navbar from '@/components/layout/Navbar'
-import Footer from '@/components/layout/Footer'
+import ConditionalLayout from '@/components/layout/ConditionalLayout'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -30,14 +29,7 @@ export const metadata: Metadata = {
       'Zytheq handles your entire job search, from resume optimization to recruiter outreach, while you give back by mentoring Indian students. No fees. Just a value exchange that works.',
     url: 'https://zytheq.com',
     siteName: 'Zytheq',
-    images: [
-      {
-        url: '/og-image.png',
-        width: 1200,
-        height: 630,
-        alt: 'Zytheq - Do great in this competitive market',
-      },
-    ],
+    images: ['/opengraph-image'],
     locale: 'en_US',
     type: 'website',
   },
@@ -46,7 +38,7 @@ export const metadata: Metadata = {
     title: 'Zytheq | We run your job search while you mentor the next generation',
     description:
       'Zytheq handles your entire job search while you mentor the next generation. No fees, just value exchange.',
-    images: ['/og-image.png'],
+    images: ['/opengraph-image'],
   },
   robots: {
     index: true,
@@ -87,11 +79,9 @@ export default function RootLayout({
         <a href="#main-content" className="skip-to-content">
           Skip to content
         </a>
-        <Navbar />
-        <main id="main-content" className="flex-1">
+        <ConditionalLayout>
           {children}
-        </main>
-        <Footer />
+        </ConditionalLayout>
       </body>
     </html>
   )

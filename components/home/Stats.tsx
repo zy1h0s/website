@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { STATS } from '@/lib/constants'
 
+const EASE = [0.22, 1, 0.36, 1] as const
+
 function Counter({ value, suffix }: { value: number; suffix: string }) {
   const [count, setCount] = useState(0)
   const ref = useRef<HTMLSpanElement>(null)
@@ -25,25 +27,42 @@ function Counter({ value, suffix }: { value: number; suffix: string }) {
   return <span ref={ref} className="tabular-nums">{count.toLocaleString()}{suffix}</span>
 }
 
+const statDescriptions = [
+  'professionals found their next role through Zytheq',
+  'one-on-one mentoring sessions completed',
+  'companies hiring from our candidate pool',
+  'of our candidates receive interview callbacks',
+]
+
 export default function Stats() {
   return (
-    <section className="relative py-20 sm:py-24 bg-primary-deeper overflow-hidden grain">
-      <div className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10">
-        <div className="grid grid-cols-2 lg:grid-cols-4">
+    <section className="relative py-24 sm:py-32 lg:py-40 overflow-hidden gradient-mesh">
+      {/* Orbs */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div className="orb orb-accent w-[300px] h-[300px] top-[20%] left-[10%] opacity-30" />
+        <div className="orb orb-primary w-[250px] h-[250px] bottom-[10%] right-[15%] opacity-40" />
+        <div className="grain absolute inset-0" />
+      </div>
+
+      <div className="relative z-10 max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-4">
           {STATS.map((stat, i) => (
             <motion.div
               key={stat.label}
-              className={`relative py-8 sm:py-10 px-4 sm:px-6 text-center ${i > 0 ? 'border-l border-white/[0.06]' : ''}`}
-              initial={{ opacity: 0, y: 20 }}
+              className="relative text-center lg:text-left group"
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.1, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ delay: i * 0.12, duration: 0.7, ease: EASE }}
             >
-              <div className="text-[2rem] sm:text-[2.75rem] lg:text-[3.25rem] font-display font-semibold text-white tracking-[-0.03em] leading-none mb-2">
+              <div className="text-gradient-stat text-[3.5rem] sm:text-[4rem] lg:text-[5rem] font-sans font-semibold tracking-[-0.04em] leading-none mb-3">
                 <Counter value={stat.value} suffix={stat.suffix} />
               </div>
-              <p className="text-white/25 text-[13px] font-medium uppercase tracking-[0.08em]">
+              <p className="text-accent text-[14px] font-semibold uppercase tracking-[0.06em] mb-2">
                 {stat.label}
+              </p>
+              <p className="text-white/25 text-[14px] leading-[1.6] max-w-[200px] mx-auto lg:mx-0">
+                {statDescriptions[i]}
               </p>
             </motion.div>
           ))}

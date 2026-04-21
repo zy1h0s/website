@@ -16,23 +16,26 @@ const iconMap: Record<string, React.ElementType> = {
   BarChart3,
 }
 
-// Bento grid layout - each card gets a unique span
 const gridConfig = [
-  'sm:col-span-2 lg:col-span-4',   // wide
-  'sm:col-span-1 lg:col-span-2',   // normal
-  'sm:col-span-1 lg:col-span-2',   // normal
-  'sm:col-span-1 lg:col-span-2',   // normal
-  'sm:col-span-1 lg:col-span-2',   // normal
-  'sm:col-span-2 lg:col-span-4',   // wide
+  'sm:col-span-2 lg:col-span-4',
+  'sm:col-span-1 lg:col-span-2',
+  'sm:col-span-1 lg:col-span-2',
+  'sm:col-span-1 lg:col-span-2',
+  'sm:col-span-1 lg:col-span-2',
+  'sm:col-span-2 lg:col-span-4',
 ]
 
 export default function Services() {
   return (
-    <section className="relative py-24 sm:py-32 lg:py-40 bg-dark overflow-hidden grain">
-      {/* Dot grid accent */}
-      <div className="absolute top-0 left-0 w-48 h-48 dot-grid-accent opacity-[0.08] pointer-events-none" aria-hidden="true" />
+    <section className="relative py-24 sm:py-32 lg:py-40 bg-dark overflow-hidden">
+      {/* Background elements */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div className="orb orb-primary w-[400px] h-[400px] top-[-5%] left-[-5%] opacity-40" />
+        <div className="orb orb-accent w-[300px] h-[300px] bottom-[10%] right-[-5%] opacity-30" />
+        <div className="grain absolute inset-0" />
+      </div>
 
-      <div className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10">
+      <div className="relative z-10 max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10">
         <SectionHeading
           tag="What we do"
           title="What we actually handle for you"
@@ -47,20 +50,19 @@ export default function Services() {
             return (
               <motion.div
                 key={service.title}
-                className={`group relative rounded-2xl p-7 sm:p-8 transition-all duration-500 ${gridConfig[i]}
-                  bg-white/[0.04] ring-1 ring-white/[0.06] hover:bg-white/[0.07] hover:ring-white/[0.10]`}
+                className={`group relative rounded-2xl p-7 sm:p-8 card-hover gradient-border ${gridConfig[i]}`}
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-40px' }}
                 transition={{ delay: i * 0.06, duration: 0.7, ease: EASE }}
               >
                 <div className={`flex ${isWide ? 'flex-row items-start gap-6' : 'flex-col'}`}>
-                  <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center flex-shrink-0 mb-5 group-hover:bg-accent/20 transition-colors duration-500">
-                    <Icon className="w-4.5 h-4.5 text-accent" />
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-accent/20 to-accent/5 flex items-center justify-center flex-shrink-0 mb-5 group-hover:from-accent/30 group-hover:to-accent/10 transition-all duration-500 ring-1 ring-accent/10">
+                    <Icon className="w-5 h-5 text-accent" />
                   </div>
                   <div>
-                    <h3 className="text-white font-semibold tracking-[-0.01em] mb-2">{service.title}</h3>
-                    <p className="text-white/35 text-[14px] leading-[1.7] group-hover:text-white/50 transition-colors duration-500">
+                    <h3 className="text-white font-semibold tracking-[-0.01em] mb-2 text-[16px]">{service.title}</h3>
+                    <p className="text-white/30 text-[14px] leading-[1.7] group-hover:text-white/50 transition-colors duration-500">
                       {service.description}
                     </p>
                   </div>

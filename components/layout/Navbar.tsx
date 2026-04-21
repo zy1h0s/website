@@ -14,7 +14,6 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const pathname = usePathname()
-  const isHome = pathname === '/'
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40)
@@ -30,59 +29,72 @@ export default function Navbar() {
     return () => { document.body.style.overflow = '' }
   }, [isOpen])
 
-  const showSolid = scrolled || !isHome
-
   return (
     <>
       <nav
         className={cn(
           'fixed top-0 left-0 right-0 z-50 transition-all duration-500',
-          showSolid
-            ? 'glass border-b border-dark/[0.04]'
-            : 'bg-transparent'
+          scrolled
+            ? 'shadow-[0_2px_20px_rgba(0,0,0,0.15)]'
+            : ''
         )}
+        style={{ background: 'linear-gradient(135deg, #0a2d66 0%, #0e3878 50%, #0d1f4a 100%)' }}
         role="navigation"
         aria-label="Main navigation"
       >
         <div className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10">
           <div className="flex items-center justify-between h-[68px] sm:h-[76px]">
             {/* Logo */}
-            <Link href="/" className="flex-shrink-0 relative z-10" aria-label="Zytheq home">
+            <Link href="/" className="flex-shrink-0 relative z-10 flex items-center gap-2.5" aria-label="Zytheq home">
               <Image
                 src="/z.png"
                 alt="Zytheq"
-                width={36}
-                height={36}
-                className="w-8 h-8 sm:w-9 sm:h-9"
+                width={48}
+                height={48}
+                className="w-11 h-11 sm:w-12 sm:h-12"
                 priority
               />
+              <span className="font-semibold text-[15px] tracking-[-0.02em] hidden sm:block text-white">
+                Zytheq
+              </span>
             </Link>
 
             {/* Desktop nav - centered */}
             <div className="hidden lg:flex items-center gap-1 absolute left-1/2 -translate-x-1/2">
               {NAV_LINKS.map((link) => {
-                const isActive = pathname === link.href
+                const isActive = link.href === '/' ? pathname === '/' : pathname.startsWith(link.href)
                 return (
                   <Link
                     key={link.href}
                     href={link.href}
                     className={cn(
                       'relative px-4 py-2 text-[14px] font-medium tracking-[-0.01em] transition-colors duration-200 rounded-full',
-                      showSolid
-                        ? isActive ? 'text-primary bg-primary/5' : 'text-dark/55 hover:text-dark hover:bg-dark/[0.03]'
-                        : isActive ? 'text-white bg-white/10' : 'text-white/60 hover:text-white hover:bg-white/[0.06]'
+                      isActive ? 'text-accent bg-white/10' : 'text-white/60 hover:text-white hover:bg-white/[0.06]'
                     )}
                   >
                     {link.label}
+                    {isActive && (
+                      <motion.span
+                        className="absolute bottom-0.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-accent"
+                        layoutId="nav-indicator"
+                        transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                      />
+                    )}
                   </Link>
                 )
               })}
             </div>
 
             {/* Desktop CTA */}
-            <div className="hidden lg:block relative z-10">
+            <div className="hidden lg:flex items-center gap-3 relative z-10">
+              <Link
+                href="/login"
+                className="px-4 py-2 text-[14px] font-medium rounded-full transition-colors duration-200 text-white/60 hover:text-white hover:bg-white/[0.06]"
+              >
+                Login
+              </Link>
               <Button
-                variant={showSolid ? 'dark' : 'accent'}
+                variant="accent"
                 size="sm"
                 href="/get-started"
                 icon={<ArrowRight className="w-3.5 h-3.5" />}
@@ -96,18 +108,18 @@ export default function Navbar() {
               onClick={() => setIsOpen(!isOpen)}
               className={cn(
                 'lg:hidden relative z-[60] w-10 h-10 flex flex-col items-center justify-center gap-[5px] rounded-full transition-colors',
-                isOpen ? 'bg-white/10' : showSolid ? 'bg-dark/5' : 'bg-white/10'
+                isOpen ? 'bg-white/10' : 'bg-white/10'
               )}
               aria-label={isOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={isOpen}
             >
               <span className={cn(
-                'w-5 h-[1.5px] rounded-full transition-all duration-300',
-                isOpen ? 'bg-white rotate-45 translate-y-[3.25px]' : showSolid ? 'bg-dark' : 'bg-white'
+                'w-5 h-[1.5px] rounded-full transition-all duration-300 bg-white',
+                isOpen && 'rotate-45 translate-y-[3.25px]'
               )} />
               <span className={cn(
-                'w-5 h-[1.5px] rounded-full transition-all duration-300',
-                isOpen ? 'bg-white -rotate-45 -translate-y-[3.25px]' : showSolid ? 'bg-dark' : 'bg-white'
+                'w-5 h-[1.5px] rounded-full transition-all duration-300 bg-white',
+                isOpen && '-rotate-45 -translate-y-[3.25px]'
               )} />
             </button>
           </div>
@@ -125,7 +137,7 @@ export default function Navbar() {
             transition={{ duration: 0.3 }}
           >
             <motion.div
-              className="absolute inset-0 bg-primary-deeper"
+              className="absolute inset-0 gradient-mesh"
               initial={{ scaleY: 0 }}
               animate={{ scaleY: 1 }}
               exit={{ scaleY: 0 }}
@@ -146,7 +158,7 @@ export default function Navbar() {
                       onClick={() => setIsOpen(false)}
                       className={cn(
                         'block py-3 text-[2rem] font-display font-semibold tracking-[-0.03em] transition-colors',
-                        pathname === link.href ? 'text-accent' : 'text-white/70 hover:text-white'
+                        (link.href === '/' ? pathname === '/' : pathname.startsWith(link.href)) ? 'text-accent' : 'text-white/70 hover:text-white'
                       )}
                     >
                       {link.label}
@@ -160,6 +172,9 @@ export default function Navbar() {
                 transition={{ delay: 0.5, duration: 0.5 }}
                 className="space-y-3"
               >
+                <Button variant="ghost" size="lg" href="/login" fullWidth className="text-white/70 hover:text-white ring-1 ring-white/10">
+                  Login
+                </Button>
                 <Button variant="accent" size="lg" href="/get-started" fullWidth icon={<ArrowRight className="w-4 h-4" />}>
                   Get Started
                 </Button>

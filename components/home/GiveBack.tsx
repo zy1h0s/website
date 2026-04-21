@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import Image from 'next/image'
 import SectionHeading from '@/components/ui/SectionHeading'
 
 const EASE = [0.22, 1, 0.36, 1] as const
@@ -67,48 +68,18 @@ export default function GiveBack() {
             viewport={{ once: true }}
             transition={{ delay: 0.2, duration: 0.8, ease: EASE }}
           >
-            <div className="relative w-full max-w-xs" aria-hidden="true">
-              <svg viewBox="0 0 300 400" className="w-full" fill="none">
-                {/* Top entity */}
-                <rect x="50" y="20" width="200" height="100" rx="16" fill="#154ba8" opacity="0.06" />
-                <rect x="60" y="30" width="180" height="80" rx="12" fill="#154ba8" opacity="0.06" />
-                <text x="150" y="65" textAnchor="middle" fill="#154ba8" fontSize="11" fontWeight="600" opacity="0.6">JOB SEEKER</text>
-                <text x="150" y="85" textAnchor="middle" fill="#154ba8" fontSize="9" opacity="0.35">United States</text>
-
-                {/* Connection dots */}
-                {Array.from({ length: 7 }, (_, i) => (
-                  <circle
-                    key={i}
-                    cx="150"
-                    cy={145 + i * 16}
-                    r={3 - Math.abs(i - 3) * 0.3}
-                    fill="#feb800"
-                    opacity={0.25 + (i / 6) * 0.5}
-                  />
-                ))}
-
-                {/* Center logo */}
-                <circle cx="150" cy="200" r="28" fill="#154ba8" />
-                <text x="150" y="206" textAnchor="middle" fill="#feb800" fontSize="18" fontWeight="700">Z</text>
-
-                {/* Connection dots bottom */}
-                {Array.from({ length: 7 }, (_, i) => (
-                  <circle
-                    key={i}
-                    cx="150"
-                    cy={240 + i * 16}
-                    r={3 - Math.abs(i - 3) * 0.3}
-                    fill="#feb800"
-                    opacity={0.5 - (i / 6) * 0.25}
-                  />
-                ))}
-
-                {/* Bottom entity */}
-                <rect x="50" y="280" width="200" height="100" rx="16" fill="#154ba8" opacity="0.06" />
-                <rect x="60" y="290" width="180" height="80" rx="12" fill="#154ba8" opacity="0.06" />
-                <text x="150" y="325" textAnchor="middle" fill="#154ba8" fontSize="11" fontWeight="600" opacity="0.6">STUDENT</text>
-                <text x="150" y="345" textAnchor="middle" fill="#154ba8" fontSize="9" opacity="0.35">India</text>
-              </svg>
+            <div className="relative w-full aspect-[4/5] max-w-sm rounded-2xl overflow-hidden ring-1 ring-dark/10 shadow-2xl">
+              <Image
+                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop"
+                alt="Professional mentorship session"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 400px"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-dark/60 via-dark/10 to-transparent flex flex-col justify-end p-8">
+                <p className="text-white font-medium">Mentorship in action</p>
+                <p className="text-white/70 text-sm mt-1">US professionals & Indian students</p>
+              </div>
             </div>
           </motion.div>
         </div>

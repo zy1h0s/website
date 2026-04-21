@@ -26,6 +26,9 @@ export default function StudentForm() {
     setErrors({ ...errors, [field]: '' })
   }
 
+  const [isLoading, setIsLoading] = useState(false)
+  const [submitError, setSubmitError] = useState('')
+
   const validate = () => {
     const e: Record<string, string> = {}
     if (!formData.name.trim()) e.name = 'Name is required'
@@ -45,7 +48,37 @@ export default function StudentForm() {
   const handleSubmit = async (ev: React.FormEvent) => {
     ev.preventDefault()
     if (!validate()) return
-    setSubmitted(true)
+    
+    setIsLoading(true)
+    setSubmitError('')
+
+    try {
+      const res = await fetch('/api/signup/student', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          college: formData.college,
+          field_of_study: formData.field,
+          graduation_year: formData.gradYear,
+          learning_goals: formData.wantToLearn,
+          additional_notes: `Heard from: ${formData.heardFrom}`,
+        }),
+      })
+
+      if (res.ok) {
+        setSubmitted(true)
+      } else {
+        const data = await res.json()
+        setSubmitError(data.error || 'Failed to submit application')
+      }
+    } catch {
+      setSubmitError('Network error. Please try again.')
+    }
+    
+    setIsLoading(false)
   }
 
   return (
@@ -91,8 +124,9 @@ export default function StudentForm() {
               </span>
             </label>
             {errors.agreement && <p className="mt-2 text-[13px] text-red-500 font-medium">{errors.agreement}</p>}
+            {submitError && <p className="mt-4 text-[13px] text-red-500 font-medium text-center">{submitError}</p>}
           </div>
-          <Button type="submit" variant="accent" size="lg" fullWidth>Submit Application</Button>
+          <Button type="submit" variant="accent" size="lg" fullWidth disabled={isLoading}>{isLoading ? 'Submitting...' : 'Submit Application'}</Button>
         </motion.form>
       )}
     </AnimatePresence>

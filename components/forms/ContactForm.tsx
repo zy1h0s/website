@@ -11,6 +11,8 @@ import { validateEmail } from '@/lib/utils'
 
 export default function ContactForm() {
   const [submitted, setSubmitted] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const [submitError, setSubmitError] = useState('')
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [formData, setFormData] = useState({ name: '', email: '', type: '', message: '' })
 
@@ -28,7 +30,29 @@ export default function ContactForm() {
   const handleSubmit = async (ev: React.FormEvent) => {
     ev.preventDefault()
     if (!validate()) return
-    setSubmitted(true)
+    setIsLoading(true)
+    setSubmitError('')
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          role: formData.type,
+          message: formData.message,
+        }),
+      })
+      if (res.ok) {
+        setSubmitted(true)
+      } else {
+        const data = await res.json()
+        setSubmitError(data.error || 'Something went wrong')
+      }
+    } catch {
+      setSubmitError('Network error. Please try again.')
+    }
+    setIsLoading(false)
   }
 
   return (

@@ -1,24 +1,33 @@
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
+import { createAdminClient } from '@/lib/supabase/server'
+import { sendContactNotification } from '@/lib/email'
 
-export async function POST(request: Request) {
+export async function POST(req: NextRequest) {
   try {
-    const body = await request.json()
+    const body = await req.json()
+    const { name, email, role, message } = body
 
-    // TODO: Integrate with backend service (Supabase, Airtable, etc.)
-    // Example:
-    // await supabase.from('contacts').insert(body)
-    // await sendEmail({ to: 'hello@zytheq.com', subject: 'New Contact', body })
+    if (!name || !email || !message) {
+      return NextResponse.json({ error: 'Name, email, and message are required' }, { status: 400 })
+    }
 
-    console.log('Contact form submission:', body)
+    // Save to Supabase
+    const supabase = createAdminClient()
+    const { error: dbError } = await supabase
+      .from('contact_submissions')
+      .insert({ name, email, role: role || '', message })
 
-    return NextResponse.json(
-      { success: true, message: 'Message received' },
-      { status: 200 }
-    )
-  } catch {
-    return NextResponse.json(
-      { success: false, message: 'Something went wrong' },
-      { status: 500 }
-    )
+    if (dbError) {
+      console.error('DB error:', dbError)
+      return NextResponse.json({ error: 'Failed to save submission' }, { status: 500 })
+    }
+
+    // Send email notification to team
+    await sendContactNotification({ name, email, message, role })
+
+    return NextResponse.json({ success: true })
+  } catch (err) {
+    console.error('Contact API error:', err)
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 }

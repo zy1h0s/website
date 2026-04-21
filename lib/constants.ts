@@ -41,105 +41,51 @@ export const SERVICES = [
 
 export const TESTIMONIALS = [
   {
-    text: 'Four months of applying on my own got me two phone screens. Two. Zytheq got me five interviews in the first three weeks. I am not even exaggerating.',
-    role: 'Software Engineer',
-    location: 'Austin',
+    text: 'Zytheq boosted my interview rate significantly. Mentoring was actually a great experience too.',
+    role: 'Frontend Developer',
+    location: 'NY',
     type: 'seeker' as const,
   },
   {
-    text: 'I was mass-applying to 50 jobs a day and hearing nothing back. Turns out my resume was getting filtered out by ATS systems. Zytheq rebuilt it from scratch and the callbacks started within a week.',
+    text: 'They rewrote my resume and the callbacks doubled in two weeks.',
     role: 'Data Analyst',
-    location: 'Seattle',
+    location: 'CA',
     type: 'seeker' as const,
   },
   {
-    text: 'The training sessions surprised me. I expected it to feel like a chore. Instead I found myself genuinely enjoying teaching someone how to navigate Excel like a pro.',
-    role: 'Financial Analyst',
-    location: 'New York',
-    type: 'seeker' as const,
-  },
-  {
-    text: 'My mentor taught me how to actually read a job description and tailor a response. That one skill changed how I approach everything.',
-    role: 'MBA Student',
-    location: 'Pune',
+    text: 'My mentor taught me real SQL use cases. It helped me pass my first tech screen.',
+    role: 'CS Student',
+    location: 'India',
     type: 'student' as const,
   },
   {
-    text: 'I was skeptical at first. No payment? What is the catch? Turns out there is no catch. They do your job search, you help a student. That is literally it.',
-    role: 'Product Manager',
-    location: 'Denver',
+    text: 'I did not have time to apply. Zytheq handled the busywork while I just interviewed.',
+    role: 'Product Designer',
+    location: 'TX',
     type: 'seeker' as const,
   },
   {
-    text: 'Zytheq handled my LinkedIn so well that recruiters started reaching out to ME. I went from chasing to being chased.',
-    role: 'UX Designer',
-    location: 'Portland',
-    type: 'seeker' as const,
-  },
-  {
-    text: 'I thought I knew how to make a presentation. Then my mentor showed me how people actually present in US companies. Completely different level.',
-    role: 'Engineering Student',
-    location: 'Hyderabad',
-    type: 'student' as const,
-  },
-  {
-    text: 'The weekly reports are what sold me. Every week I could see exactly what they did, how many applications, which companies, what responses came back. Full transparency.',
-    role: 'Operations Manager',
-    location: 'Atlanta',
-    type: 'seeker' as const,
-  },
-  {
-    text: 'I landed a role at a company I did not even know existed. Zytheq found it, applied, and prepped me for the interview. All I had to do was show up and be myself.',
-    role: 'Marketing Specialist',
-    location: 'Miami',
-    type: 'seeker' as const,
-  },
-  {
-    text: 'Honestly the evening sessions with my student became the thing I looked forward to most. Watching someone go from nervous to confident in a few weeks is something else.',
-    role: 'Senior Developer',
-    location: 'San Francisco',
-    type: 'seeker' as const,
-  },
-  {
-    text: 'My mentor did not just teach me tools. She taught me how to think about problems the way her team does. That is something no course can give you.',
-    role: 'BCA Student',
-    location: 'Chennai',
-    type: 'student' as const,
-  },
-  {
-    text: 'I had three offers within six weeks. Picked the one with the best culture fit. Zytheq even helped me negotiate the salary.',
-    role: 'Business Analyst',
-    location: 'Dallas',
-    type: 'seeker' as const,
-  },
-  {
-    text: 'The candidates I have sourced through Zytheq consistently outperform. Their resumes are clean, their LinkedIn profiles are sharp, and they interview well.',
-    role: 'Technical Recruiter',
-    location: 'San Jose',
+    text: 'The candidates we get from this platform are consistently well-prepared.',
+    role: 'Tech Recruiter',
+    location: 'US',
     type: 'recruiter' as const,
   },
   {
-    text: 'I was laid off and panicking. Zytheq took over my entire search so I could focus on not losing my mind. That alone was worth it.',
-    role: 'Project Manager',
-    location: 'Boston',
+    text: 'It felt like having a personal job search concierge.',
+    role: 'Backend Engineer',
+    location: 'WA',
     type: 'seeker' as const,
   },
   {
-    text: 'Before Zytheq I had never used Slack or Notion or any of these tools. Now I am comfortable with all of them. My mentor made it feel easy.',
-    role: 'Commerce Student',
-    location: 'Delhi',
+    text: 'We covered API design in my session, which was a game-changer for my confidence.',
+    role: 'IT Student',
+    location: 'India',
     type: 'student' as const,
   },
   {
-    text: 'What I appreciate most is that they do not just blast your resume everywhere. They actually read job descriptions and match you properly. Quality over quantity.',
-    role: 'DevOps Engineer',
-    location: 'Phoenix',
-    type: 'seeker' as const,
-  },
-  {
-    text: 'I went from mass-applying on my phone at 2 AM to actually sleeping well because I knew someone competent was handling it.',
-    role: 'Graphic Designer',
-    location: 'LA',
+    text: 'No upfront cost, just 2 hours of mentoring a week. Absolutely worth it.',
+    role: 'iOS Developer',
+    location: 'FL',
     type: 'seeker' as const,
   },
 ]
@@ -180,10 +126,10 @@ export const FAQ_DATA = [
 ]
 
 export const STATS = [
-  { value: 500, suffix: '+', label: 'Candidates Placed' },
-  { value: 1200, suffix: '+', label: 'Student Sessions Completed' },
-  { value: 150, suffix: '+', label: 'Partner Companies' },
-  { value: 92, suffix: '%', label: 'Interview Conversion Rate' },
+  { value: 243, suffix: '', label: 'Candidates Placed' },
+  { value: 587, suffix: '', label: 'Student Sessions Completed' },
+  { value: 74, suffix: '', label: 'Partner Companies' },
+  { value: 86, suffix: '%', label: 'Interview Conversion Rate' },
 ]
 
 export const REVIEWS = [

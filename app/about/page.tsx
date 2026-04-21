@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import Image from 'next/image'
 import { Eye, TrendingUp, Zap, Unlock } from 'lucide-react'
 import SectionHeading from '@/components/ui/SectionHeading'
 import DotPattern from '@/components/ui/DotPattern'
@@ -84,7 +85,17 @@ export default function AboutPage() {
               viewport={{ once: true }}
               transition={{ delay: 0.2, duration: 0.8, ease: EASE }}
             >
-              <div className="lg:sticky lg:top-28">
+              <div className="lg:sticky lg:top-28 space-y-12">
+                <div className="relative w-full aspect-square rounded-2xl overflow-hidden ring-1 ring-dark/10 shadow-xl">
+                  <Image
+                    src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1200&auto=format&fit=crop"
+                    alt="Zytheq workspace"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 1024px) 100vw, 400px"
+                  />
+                  <div className="absolute inset-0 ring-1 ring-inset ring-dark/10 rounded-2xl pointer-events-none" />
+                </div>
                 <div className="border-l-2 border-accent pl-6 py-2">
                   <p className="font-display text-[1.5rem] text-dark/70 leading-[1.4] tracking-[-0.02em] italic">
                     &ldquo;Not a transaction. Not charity. Just two groups of people helping each other.&rdquo;

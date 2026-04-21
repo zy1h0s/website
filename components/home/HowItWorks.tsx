@@ -7,28 +7,28 @@ const EASE = [0.22, 1, 0.36, 1] as const
 
 const steps = [
   {
-    num: '01',
+    num: '1',
     title: 'Share your goals',
     description: 'Tell us about your career, target roles, and what matters to you. Upload your resume. We take it from there.',
-    accent: false,
-  },
-  {
-    num: '02',
-    title: 'We take over',
-    description: 'Our team optimizes your resume, overhauls your LinkedIn, and starts applying to roles that match. You get weekly reports on everything.',
-    accent: false,
-  },
-  {
-    num: '03',
-    title: 'You give back',
-    description: 'Spend 1 to 3 evening hours (9 to 11 PM your time) training an Indian student over Zoom. Teach what you know. We provide the structure.',
     accent: true,
   },
   {
-    num: '04',
+    num: '2',
+    title: 'We take over',
+    description: 'Our team optimizes your resume, overhauls your LinkedIn, and starts applying to roles that match. You get weekly reports on everything.',
+    accent: true,
+  },
+  {
+    num: '3',
+    title: 'You give back',
+    description: 'Spend 1 to 3 evening hours (9 to 11 PM your time) training a student over a virtual meeting. Teach what you know. We provide the structure.',
+    accent: true,
+  },
+  {
+    num: '4',
     title: 'Everybody wins',
     description: 'You land interviews. You land offers. Your student gains real-world skills and confidence. The cycle continues for the next person.',
-    accent: false,
+    accent: true,
   },
 ]
 
