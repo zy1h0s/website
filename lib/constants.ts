@@ -423,14 +423,16 @@ export const REVIEWS = [
 
 export const TEAM_MEMBERS = [
   {
-    name: 'Founder & CEO',
-    title: 'Building the bridge between opportunity and talent.',
-    initials: 'ZF',
+    name: 'Vatsal',
+    title: 'Founder & CEO',
+    initials: 'V',
+    image: '/team/vatsal_zytheq.png',
   },
   {
-    name: 'Head of Candidate Success',
-    title: 'Making sure every job seeker gets the attention they deserve.',
-    initials: 'CS',
+    name: 'Dhyey',
+    title: 'Head of Candidate Success',
+    initials: 'D',
+    image: '/team/dhyey_zytheq.png',
   },
   {
     name: 'Head of Student Programs',
