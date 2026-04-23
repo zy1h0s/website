@@ -29,7 +29,11 @@ export default function ForRecruiters() {
           >
             <div className="bg-primary rounded-2xl p-8 sm:p-10 relative overflow-hidden">
               <div className="absolute top-0 right-0 w-32 h-32 dot-grid-accent opacity-[0.12] pointer-events-none" />
-              <p className="text-white/40 text-[13px] font-semibold uppercase tracking-[0.1em] mb-6">For recruiters</p>
+              <div className="mb-8 relative z-10">
+                <span className="inline-block text-accent text-[11px] font-bold uppercase tracking-[0.15em] py-1.5 px-4 rounded-full border border-accent/30 bg-accent/10 backdrop-blur-sm shadow-sm">
+                  For recruiters
+                </span>
+              </div>
               <p className="text-white font-display text-[2.5rem] sm:text-[3rem] font-semibold tracking-[-0.03em] leading-[1.05] mb-4">
                 Better candidates.
                 <br />
