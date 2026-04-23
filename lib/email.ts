@@ -103,20 +103,21 @@ export async function sendWelcomeEmail(data: { name: string; email: string; role
   let subject = ''
   let htmlContent = ''
 
+  // Extremely email-safe, clean typography stack
   const baseStyles = `
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    color: #f4f4f5;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    color: #e4e4e7;
     line-height: 1.6;
     margin: 0;
     padding: 0;
   `
   
   const containerStyles = `
-    max-width: 600px;
+    max-width: 580px;
     margin: 0 auto;
     background-color: #0a0a0a;
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 16px;
+    border: 1px solid #27272a;
+    border-radius: 12px;
     overflow: hidden;
   `
 
@@ -130,61 +131,56 @@ export async function sendWelcomeEmail(data: { name: string; email: string; role
   `
 
   const headingStyles = `
-    font-family: 'Playfair Display', Georgia, serif;
-    font-size: 28px;
+    font-size: 24px;
     font-weight: 600;
     color: #ffffff;
     margin: 0 0 20px 0;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.01em;
   `
 
   const textStyles = `
     font-size: 15px;
-    color: rgba(255,255,255,0.7);
-    margin-bottom: 24px;
+    color: #a1a1aa;
+    margin-bottom: 20px;
+    line-height: 1.6;
   `
 
   const buttonStyles = `
     display: inline-block;
     background-color: #feb800;
     color: #0a0a0a;
-    padding: 14px 32px;
-    border-radius: 999px;
+    padding: 12px 28px;
+    border-radius: 8px;
     text-decoration: none;
     font-weight: 600;
     font-size: 15px;
-    margin-top: 10px;
+    margin-top: 16px;
   `
 
+  // Text-based logo to completely avoid the "?" broken image issue in email clients
   const logoHtml = `
-    <div style="margin-bottom: 30px;">
-      <img src="https://zytheq.com/z.png" alt="Zytheq Logo" width="48" height="48" style="display: block; margin: 0 auto;" />
+    <div style="margin-bottom: 32px;">
+      <span style="font-size: 24px; font-weight: 700; color: #ffffff; letter-spacing: -0.02em;">Zytheq</span><span style="color: #feb800; font-size: 24px; font-weight: 700;">.</span>
     </div>
   `
 
   if (data.role === 'candidate') {
-    subject = "Welcome to Zytheq! Let's get to work."
+    subject = "Welcome to Zytheq! We are thrilled to have you."
     htmlContent = `
-      <div style="background-color: #000000; padding: 40px 20px;">
+      <div style="background-color: #000000; padding: 40px 20px; ${baseStyles}">
         <div style="${containerStyles}">
           <div style="${headerStyles}">
             ${logoHtml}
-            <h1 style="${headingStyles}">Your job search is now on autopilot.</h1>
+            <h1 style="${headingStyles}">Welcome to the community!</h1>
           </div>
           <div style="${bodyStyles}">
-            <p style="${textStyles}">Welcome, <strong>${data.name}</strong>. We are thrilled to have you.</p>
-            <p style="${textStyles}">You've just taken the smartest step in your career. While you spend a couple of hours a week giving back and mentoring the next generation, our team is working behind the scenes for you.</p>
+            <p style="${textStyles}">Hi <strong>${data.name}</strong>,</p>
+            <p style="${textStyles}">We are so excited to have you on board.</p>
+            <p style="${textStyles}">We know firsthand how exhausting and isolating the job search can be. That's exactly why we built Zytheq—to take the heavy lifting off your plate so you can focus on what actually matters.</p>
+            <p style="${textStyles}">While our team gets to work reviewing your profile and searching for your perfect role, you'll be giving back by mentoring a student who is eager to learn from your experience. It's a true win-win.</p>
+            <p style="${textStyles}">We'll be in touch soon with your first mentorship match and an update on your job applications. In the meantime, head over to your dashboard to complete your onboarding!</p>
             
-            <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; padding: 24px; margin-bottom: 30px;">
-              <h3 style="color: #feb800; font-size: 14px; text-transform: uppercase; letter-spacing: 0.1em; margin: 0 0 16px 0;">What happens next?</h3>
-              <p style="margin: 0 0 12px 0; font-size: 14px; color: rgba(255,255,255,0.8);"><strong>1. Resume Polish:</strong> We optimize your profile for ATS systems.</p>
-              <p style="margin: 0 0 12px 0; font-size: 14px; color: rgba(255,255,255,0.8);"><strong>2. Applications:</strong> We apply to targeted roles on your behalf.</p>
-              <p style="margin: 0; font-size: 14px; color: rgba(255,255,255,0.8);"><strong>3. Mentorship:</strong> You get matched with a student to mentor.</p>
-            </div>
-
-            <p style="${textStyles}">Head over to your dashboard to complete your onboarding so we can get started right away.</p>
-            
-            <div style="text-align: center;">
+            <div style="text-align: center; margin-top: 10px;">
               <a href="https://zytheq.com/dashboard/candidate" style="${buttonStyles}">Go to Dashboard</a>
             </div>
           </div>
@@ -194,26 +190,20 @@ export async function sendWelcomeEmail(data: { name: string; email: string; role
   } else if (data.role === 'student') {
     subject = "Welcome to Zytheq Mentorship!"
     htmlContent = `
-      <div style="background-color: #000000; padding: 40px 20px;">
+      <div style="background-color: #000000; padding: 40px 20px; ${baseStyles}">
         <div style="${containerStyles}">
           <div style="${headerStyles}">
             ${logoHtml}
-            <h1 style="${headingStyles}">Get ready to level up your career.</h1>
+            <h1 style="${headingStyles}">Welcome to the community!</h1>
           </div>
           <div style="${bodyStyles}">
-            <p style="${textStyles}">Welcome, <strong>${data.name}</strong>!</p>
-            <p style="${textStyles}">You have taken the first step toward landing your dream job by learning directly from industry professionals working in the US. No more outdated theory—just real-world skills that companies actually hire for.</p>
+            <p style="${textStyles}">Hi <strong>${data.name}</strong>,</p>
+            <p style="${textStyles}">We are absolutely thrilled to welcome you to Zytheq.</p>
+            <p style="${textStyles}">Learning the skills you need to land your dream job shouldn't be a mystery. We're here to connect you directly with experienced professionals in the US who genuinely want to help you succeed.</p>
+            <p style="${textStyles}">Through 1-on-1 mentorship sessions, you'll gain real-world insights, practice your skills, and build the confidence you need to launch your career.</p>
+            <p style="${textStyles}">To get started, head over to your dashboard and complete your skills profile so we can match you with the perfect mentor!</p>
             
-            <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; padding: 24px; margin-bottom: 30px;">
-              <h3 style="color: #feb800; font-size: 14px; text-transform: uppercase; letter-spacing: 0.1em; margin: 0 0 16px 0;">Your Next Steps</h3>
-              <p style="margin: 0 0 12px 0; font-size: 14px; color: rgba(255,255,255,0.8);"><strong>1. Complete Profile:</strong> Tell us what you want to learn.</p>
-              <p style="margin: 0 0 12px 0; font-size: 14px; color: rgba(255,255,255,0.8);"><strong>2. Get Matched:</strong> We connect you with a US-based mentor.</p>
-              <p style="margin: 0; font-size: 14px; color: rgba(255,255,255,0.8);"><strong>3. Learn & Grow:</strong> Join your 1-on-1 sessions and build your skills.</p>
-            </div>
-
-            <p style="${textStyles}">Head over to your dashboard to complete your skills profile so we can match you with the perfect mentor.</p>
-            
-            <div style="text-align: center;">
+            <div style="text-align: center; margin-top: 10px;">
               <a href="https://zytheq.com/dashboard/student" style="${buttonStyles}">Complete Profile</a>
             </div>
           </div>
@@ -222,28 +212,21 @@ export async function sendWelcomeEmail(data: { name: string; email: string; role
     `
   } else {
     // Recruiter
-    subject = "Access top-tier candidates on Zytheq"
+    subject = "Welcome to Zytheq! Let's find your next great hire."
     htmlContent = `
-      <div style="background-color: #000000; padding: 40px 20px;">
+      <div style="background-color: #000000; padding: 40px 20px; ${baseStyles}">
         <div style="${containerStyles}">
           <div style="${headerStyles}">
             ${logoHtml}
-            <h1 style="${headingStyles}">Better candidates. Zero fluff.</h1>
+            <h1 style="${headingStyles}">Welcome to Zytheq!</h1>
           </div>
           <div style="${bodyStyles}">
-            <p style="${textStyles}">Welcome, <strong>${data.name}</strong>.</p>
-            <p style="${textStyles}">We are excited to partner with you. Finding great talent is hard, but Zytheq makes it effortless by giving you direct access to highly vetted candidates who are actively giving back through mentorship.</p>
+            <p style="${textStyles}">Hi <strong>${data.name}</strong>,</p>
+            <p style="${textStyles}">We are absolutely delighted to partner with you.</p>
+            <p style="${textStyles}">Finding top-tier talent shouldn't be a headache, and it certainly shouldn't cost a fortune in agency fees. We created Zytheq to give you direct access to pre-vetted, high-performing candidates who are actively demonstrating their leadership by mentoring the next generation.</p>
+            <p style="${textStyles}">We've curated a talent pipeline specifically tailored for your needs. Head over to your dashboard to start exploring, and please reach out if there's anything we can do to help you find your next great hire!</p>
             
-            <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; padding: 24px; margin-bottom: 30px;">
-              <h3 style="color: #feb800; font-size: 14px; text-transform: uppercase; letter-spacing: 0.1em; margin: 0 0 16px 0;">Why Zytheq Candidates?</h3>
-              <p style="margin: 0 0 12px 0; font-size: 14px; color: rgba(255,255,255,0.8);">✔ Pre-vetted, high-performing professionals.</p>
-              <p style="margin: 0 0 12px 0; font-size: 14px; color: rgba(255,255,255,0.8);">✔ Leadership traits proven through active student mentorship.</p>
-              <p style="margin: 0; font-size: 14px; color: rgba(255,255,255,0.8);">✔ Direct access without the usual recruiting agency fees.</p>
-            </div>
-
-            <p style="${textStyles}">Jump into your dashboard to view our curated candidate pipeline and start reaching out to your next great hire.</p>
-            
-            <div style="text-align: center;">
+            <div style="text-align: center; margin-top: 10px;">
               <a href="https://zytheq.com/dashboard/recruiter" style="${buttonStyles}">View Pipeline</a>
             </div>
           </div>
