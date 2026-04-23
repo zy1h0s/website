@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
+import Image from 'next/image'
 import Button from '@/components/ui/Button'
 
 const EASE = [0.22, 1, 0.36, 1] as const
@@ -33,11 +34,11 @@ export default function HomeCTA() {
           transition={{ duration: 0.8, ease: EASE }}
         >
           <motion.div
-            className="w-16 h-16 mx-auto mb-8 rounded-2xl bg-accent/10 ring-1 ring-accent/20 flex items-center justify-center"
+            className="w-16 h-16 mx-auto mb-8 rounded-2xl bg-accent/5 ring-1 ring-accent/10 flex items-center justify-center overflow-hidden"
             animate={{ y: [0, -4, 0] }}
             transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
           >
-            <span className="text-accent text-2xl font-display font-bold">Z</span>
+            <Image src="/z.png" alt="Zytheq logo" width={32} height={32} className="object-contain" />
           </motion.div>
 
           <h2 className="font-display text-[2.2rem] sm:text-[3rem] lg:text-[3.75rem] font-semibold text-white tracking-[-0.04em] leading-[1.05]">
