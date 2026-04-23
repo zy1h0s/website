@@ -134,37 +134,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Team */}
-      <section className="py-24 sm:py-32 lg:py-40 bg-white">
-        <div className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10">
-          <SectionHeading tag="The team" title="Real people behind the scenes" align="left" />
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6">
-            {TEAM_MEMBERS.map((member, i) => (
-              <motion.div
-                key={member.name}
-                className="group"
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.06, duration: 0.6, ease: EASE }}
-              >
-                <div className="relative aspect-square rounded-2xl bg-surface flex items-center justify-center mb-4 ring-1 ring-dark/[0.04] group-hover:ring-primary/10 transition-all duration-500 overflow-hidden">
-                  {member.image ? (
-                    <Image src={member.image} alt={member.name} fill className="object-cover" sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 16vw" />
-                  ) : (
-                    <span className="text-2xl font-display font-semibold text-dark/15 group-hover:text-primary/30 transition-colors duration-500">
-                      {member.initials}
-                    </span>
-                  )}
-                </div>
-                <h3 className="font-medium text-dark text-[14px] tracking-[-0.01em]">{member.name}</h3>
-                <p className="text-dark/35 text-[13px] mt-0.5 leading-snug">{member.title}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
     </>
   )
 }
