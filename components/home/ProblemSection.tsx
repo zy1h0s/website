@@ -54,11 +54,11 @@ export default function ProblemSection() {
               <span className="w-2 h-2 rounded-full bg-red-400/60" />
               You, right now
             </motion.div>
-            <div className="space-y-0 rounded-2xl overflow-hidden border border-red-100/60 bg-gradient-to-b from-red-50/40 to-transparent">
+            <div className="space-y-0 rounded-2xl overflow-hidden border border-red-200/60 bg-gradient-to-b from-red-100/60 to-transparent">
               {painPoints.map((point, i) => (
                 <motion.div
                   key={i}
-                  className="py-5 px-6 border-b border-red-100/40 last:border-0 group"
+                  className="py-5 px-6 border-b border-red-200/40 last:border-0 group"
                   initial={{ opacity: 0, x: -16 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, margin: '-40px' }}
@@ -118,11 +118,11 @@ export default function ProblemSection() {
               <span className="w-2 h-2 rounded-full bg-emerald-400" />
               You, with Zytheq
             </motion.div>
-            <div className="space-y-0 rounded-2xl overflow-hidden border border-emerald-100/60 bg-gradient-to-b from-emerald-50/40 to-transparent">
+            <div className="space-y-0 rounded-2xl overflow-hidden border border-emerald-200/60 bg-gradient-to-b from-emerald-100/60 to-transparent">
               {reliefPoints.map((point, i) => (
                 <motion.div
                   key={i}
-                  className="py-5 px-6 border-b border-emerald-100/40 last:border-0 group"
+                  className="py-5 px-6 border-b border-emerald-200/40 last:border-0 group"
                   initial={{ opacity: 0, x: 16 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, margin: '-40px' }}
