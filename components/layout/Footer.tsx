@@ -30,7 +30,7 @@ const footerColumns = [
       { label: 'LinkedIn', href: '#', external: true },
       { label: 'X / Twitter', href: '#', external: true },
       { label: 'Instagram', href: '#', external: true },
-      { label: 'hello@zytheq.com', href: 'mailto:hello@zytheq.com' },
+      { label: 'contact@zytheq.com', href: 'mailto:contact@zytheq.com' },
     ],
   },
 ]

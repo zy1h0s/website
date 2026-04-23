@@ -28,7 +28,7 @@ const sections = [
   },
   {
     title: '6. Contact Us',
-    content: 'If you have questions about this privacy policy, please contact us at hello@zytheq.com.',
+    content: 'If you have questions about this privacy policy, please contact us at contact@zytheq.com.',
   },
 ]
 
@@ -75,8 +75,8 @@ export default function PrivacyPage() {
               <div className="lg:sticky lg:top-28 space-y-8">
                 <div>
                   <p className="text-[12px] font-semibold uppercase tracking-[0.1em] text-dark/25 mb-1">Questions?</p>
-                  <a href="mailto:hello@zytheq.com" className="text-dark font-medium hover:text-primary transition-colors">
-                    hello@zytheq.com
+                  <a href="mailto:contact@zytheq.com" className="text-dark font-medium hover:text-primary transition-colors">
+                    contact@zytheq.com
                   </a>
                 </div>
                 <div className="border-t border-dark/[0.06] pt-6">

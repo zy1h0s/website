@@ -178,7 +178,7 @@ export default function Navbar() {
                 <Button variant="accent" size="lg" href="/get-started" fullWidth icon={<ArrowRight className="w-4 h-4" />}>
                   Get Started
                 </Button>
-                <p className="text-white/25 text-[13px] text-center pt-2">hello@zytheq.com</p>
+                <p className="text-white/25 text-[13px] text-center pt-2">contact@zytheq.com</p>
               </motion.div>
             </div>
           </motion.div>

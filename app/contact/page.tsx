@@ -43,7 +43,7 @@ export default function ContactPage() {
                 {/* Contact details */}
                 <div className="space-y-6">
                   {[
-                    { label: 'Email', value: 'hello@zytheq.com', href: 'mailto:hello@zytheq.com' },
+                    { label: 'Email', value: 'contact@zytheq.com', href: 'mailto:contact@zytheq.com' },
                     { label: 'Response time', value: 'Within 24 hours' },
                     { label: 'Location', value: 'United States & India' },
                   ].map((item, i) => (

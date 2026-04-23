@@ -57,7 +57,7 @@ const jsonLd = {
   sameAs: [],
   contactPoint: {
     '@type': 'ContactPoint',
-    email: 'hello@zytheq.com',
+    email: 'contact@zytheq.com',
     contactType: 'customer service',
   },
 }

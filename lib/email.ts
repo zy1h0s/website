@@ -119,7 +119,7 @@ export async function sendWelcomeEmail(data: { name: string; email: string; role
         </div>
         <div style="border: 1px solid #e8eaed; border-top: none; padding: 32px; border-radius: 0 0 12px 12px;">
           <p style="font-size: 16px; color: #0a0a0a;">${roleMessages[data.role] || 'Welcome aboard!'}</p>
-          <p style="color: #6b7280; font-size: 14px; margin-top: 16px;">If you have any questions, reply to this email or reach us at hello@zytheq.com.</p>
+          <p style="color: #6b7280; font-size: 14px; margin-top: 16px;">If you have any questions, reply to this email or reach us at contact@zytheq.com.</p>
           <div style="margin-top: 24px; text-align: center;">
             <a href="https://zytheq.com/login" style="display: inline-block; background: #feb800; color: #0a0a0a; padding: 12px 32px; border-radius: 999px; text-decoration: none; font-weight: 600; font-size: 14px;">Go to Dashboard</a>
           </div>
