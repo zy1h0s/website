@@ -136,13 +136,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       return { success: false, error: error.message }
     }
 
-    // Send welcome email via API route
+    // Send welcome email asynchronously so it doesn't block the UI for 15 seconds
     try {
-      await fetch('/api/welcome-email', {
+      fetch('/api/welcome-email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: data.name, email: data.email, role: data.role }),
-      })
+      }).catch(console.error)
     } catch {} // Non-critical
 
     return { success: true }
