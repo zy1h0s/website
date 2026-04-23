@@ -7,6 +7,7 @@ import ReviewCard from '@/components/reviews/ReviewCard'
 import RatingBreakdown from '@/components/reviews/RatingBreakdown'
 import ReviewForm from '@/components/reviews/ReviewForm'
 import DotPattern from '@/components/ui/DotPattern'
+import { useAuth } from '@/lib/auth-context'
 import { cn } from '@/lib/utils'
 
 const EASE = [0.22, 1, 0.36, 1] as const
@@ -19,6 +20,7 @@ const FILTERS = [
 
 export default function ReviewsPage() {
   const [filter, setFilter] = useState('all')
+  const { user } = useAuth()
   const filtered = filter === 'all' ? REVIEWS : REVIEWS.filter((r) => r.type === filter)
 
   // Split into 3 columns for masonry
@@ -123,7 +125,15 @@ export default function ReviewsPage() {
               Only verified Zytheq users can submit reviews.
             </p>
           </motion.div>
-          <ReviewForm />
+          {user ? (
+            <ReviewForm />
+          ) : (
+            <div className="bg-surface rounded-xl p-10 text-center ring-1 ring-dark/[0.04]">
+              <p className="text-dark/50 text-[15px]">
+                Please <a href="/login" className="text-primary font-semibold hover:underline">log in</a> to add a review.
+              </p>
+            </div>
+          )}
         </div>
       </section>
     </>
