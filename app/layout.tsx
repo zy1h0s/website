@@ -63,6 +63,7 @@ const jsonLd = {
 }
 
 import MobileGate from '@/components/layout/MobileGate'
+import { AuthProvider } from '@/lib/auth-context'
 
 export default function RootLayout({
   children,
@@ -81,10 +82,12 @@ export default function RootLayout({
         <a href="#main-content" className="skip-to-content">
           Skip to content
         </a>
-        <MobileGate />
-        <ConditionalLayout>
-          {children}
-        </ConditionalLayout>
+        <AuthProvider>
+          <MobileGate />
+          <ConditionalLayout>
+            {children}
+          </ConditionalLayout>
+        </AuthProvider>
       </body>
     </html>
   )

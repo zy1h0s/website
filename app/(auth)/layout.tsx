@@ -2,11 +2,9 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { AuthProvider } from '@/lib/auth-context'
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
   return (
-    <AuthProvider>
       <div className="min-h-screen relative flex flex-col gradient-mesh overflow-hidden">
         {/* Orbs */}
         <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
@@ -34,6 +32,5 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
           <p className="text-[12px] text-white/20">© 2026 Zytheq. All rights reserved.</p>
         </footer>
       </div>
-    </AuthProvider>
   )
 }
