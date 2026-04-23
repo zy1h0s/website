@@ -1,14 +1,6 @@
-import nodemailer from 'nodemailer'
+import { Resend } from 'resend'
 
-const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST,
-  port: Number(process.env.SMTP_PORT) || 465,
-  secure: true, // port 465 = SSL
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS,
-  },
-})
+const resend = new Resend(process.env.RESEND_API_KEY)
 
 interface EmailOptions {
   to: string
@@ -20,15 +12,21 @@ interface EmailOptions {
 
 export async function sendEmail({ to, subject, html, from, replyTo }: EmailOptions) {
   try {
-    const result = await transporter.sendMail({
-      from: from || `"Zytheq" <${process.env.EMAIL_CANDIDATE}>`,
+    const { data, error } = await resend.emails.send({
+      from: from || `Zytheq <contact@zytheq.com>`,
       to,
       subject,
       html,
-      replyTo,
+      reply_to: replyTo,
     })
-    console.log('Email sent:', result.messageId)
-    return { success: true, messageId: result.messageId }
+
+    if (error) {
+      console.error('Resend email error:', error)
+      return { success: false, error: error.message }
+    }
+
+    console.log('Email sent:', data?.id)
+    return { success: true, messageId: data?.id }
   } catch (error) {
     console.error('Email error:', error)
     return { success: false, error: String(error) }
