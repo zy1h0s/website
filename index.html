@@ -1,1975 +1,459 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Zytheq — Everything Included, But Better</title>
-  <meta name="description"
-    content="Zytheq provides premium interview sessions, assessment training, technical training, and full candidate onboarding for Indian businesses. 22 placements in 5 months — unmatched in the industry.">
-  <meta name="keywords"
-    content="interview sessions, assessment training, technical training, candidate onboarding, staffing, India, B2B hiring">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
-    rel="stylesheet">
-  <style>
-    /* ===================================================================
-       DESIGN SYSTEM — Zytheq
-       Apple Design Skill: §15 Typography, §12 Materials, §14 Reduced Motion
-       =================================================================== */
-
-    *,
-    *::before,
-    *::after {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    :root {
-      /* Backgrounds */
-      --bg-deep: #0A0E17;
-      --bg-card: #111827;
-      --bg-elevated: #1A2035;
-      --bg-surface: rgba(255, 255, 255, 0.04);
-
-      /* Gold accent system */
-      --gold: #C9A84C;
-      --gold-light: #E8C872;
-      --gold-glow: rgba(201, 168, 76, 0.15);
-      --gold-border: rgba(201, 168, 76, 0.25);
-
-      /* Text */
-      --text-primary: #F0EDE5;
-      --text-secondary: #8B8D97;
-      --text-muted: #5A5C66;
-      --text-on-gold: #0A0E17;
-
-      /* Accent */
-      --green: #34D399;
-      --green-glow: rgba(52, 211, 153, 0.12);
-
-      /* Glass */
-      --glass-bg: rgba(255, 255, 255, 0.03);
-      --glass-border: rgba(255, 255, 255, 0.07);
-      --glass-highlight: rgba(255, 255, 255, 0.12);
-
-      /* Spacing scale */
-      --space-xs: 0.5rem;
-      --space-sm: 1rem;
-      --space-md: 1.5rem;
-      --space-lg: 3rem;
-      --space-xl: 5rem;
-      --space-2xl: 8rem;
-
-      /* Motion — Apple §4: spring-like curves */
-      --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
-      --ease-out-back: cubic-bezier(0.34, 1.56, 0.64, 1);
-      --duration-fast: 200ms;
-      --duration-normal: 400ms;
-      --duration-slow: 700ms;
-    }
-
-    html {
-      scroll-behavior: smooth;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-
-    body {
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      background: var(--bg-deep);
-      color: var(--text-primary);
-      font-size: 1rem;
-      line-height: 1.6;
-      letter-spacing: 0em;
-      overflow-x: hidden;
-    }
-
-    /* ===================================================================
-       TYPOGRAPHY — Apple §15: size-specific tracking + leading
-       =================================================================== */
-
-    .display-xl {
-      font-size: clamp(2.5rem, 6vw, 5rem);
-      font-weight: 800;
-      line-height: 1.02;
-      letter-spacing: -0.04em;
-      font-optical-sizing: auto;
-    }
-
-    .display-lg {
-      font-size: clamp(2rem, 4.5vw, 3.5rem);
-      font-weight: 700;
-      line-height: 1.08;
-      letter-spacing: -0.03em;
-    }
-
-    .display-md {
-      font-size: clamp(1.5rem, 3vw, 2.25rem);
-      font-weight: 700;
-      line-height: 1.15;
-      letter-spacing: -0.025em;
-    }
-
-    .heading {
-      font-size: clamp(1.125rem, 2vw, 1.5rem);
-      font-weight: 600;
-      line-height: 1.25;
-      letter-spacing: -0.01em;
-    }
-
-    .body-lg {
-      font-size: clamp(1rem, 1.5vw, 1.25rem);
-      line-height: 1.65;
-      color: var(--text-secondary);
-    }
-
-    .body {
-      font-size: 1rem;
-      line-height: 1.6;
-      color: var(--text-secondary);
-    }
-
-    .eyebrow {
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--gold);
-    }
-
-    .stat-number {
-      font-size: clamp(4rem, 12vw, 9rem);
-      font-weight: 900;
-      line-height: 1;
-      letter-spacing: -0.05em;
-      background: linear-gradient(135deg, var(--gold-light), var(--gold));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    /* ===================================================================
-       LAYOUT
-       =================================================================== */
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 clamp(1.5rem, 4vw, 3rem);
-    }
-
-    section {
-      position: relative;
-    }
-
-    /* ===================================================================
-       NAVIGATION — Translucent bar (Apple §12)
-       =================================================================== */
-
-    .nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 100;
-      padding: 0 clamp(1.5rem, 4vw, 3rem);
-      transition: background var(--duration-normal) var(--ease-out-expo),
-        backdrop-filter var(--duration-normal) var(--ease-out-expo);
-    }
-
-    .nav.scrolled {
-      background: rgba(10, 14, 23, 0.72);
-      backdrop-filter: blur(24px) saturate(180%);
-      -webkit-backdrop-filter: blur(24px) saturate(180%);
-      border-bottom: 1px solid var(--glass-border);
-    }
-
-    .nav-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 72px;
-    }
-
-    .nav-logo {
-      font-size: 1.25rem;
-      font-weight: 800;
-      letter-spacing: 0.06em;
-      color: var(--text-primary);
-      text-decoration: none;
-    }
-
-    .nav-logo span {
-      color: var(--gold);
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 2rem;
-      list-style: none;
-    }
-
-    .nav-links a {
-      font-size: 0.875rem;
-      font-weight: 500;
-      color: var(--text-secondary);
-      text-decoration: none;
-      transition: color var(--duration-fast) var(--ease-out-expo);
-      position: relative;
-    }
-
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 0;
-      height: 1.5px;
-      background: var(--gold);
-      transition: width var(--duration-normal) var(--ease-out-expo);
-    }
-
-    .nav-links a:hover {
-      color: var(--text-primary);
-    }
-
-    .nav-links a:hover::after {
-      width: 100%;
-    }
-
-    /* Apple §1: respond on pointer-down */
-    .nav-cta {
-      font-size: 0.875rem;
-      font-weight: 600;
-      color: var(--text-on-gold);
-      background: linear-gradient(135deg, var(--gold-light), var(--gold));
-      border: none;
-      padding: 0.625rem 1.5rem;
-      border-radius: 100px;
-      cursor: pointer;
-      text-decoration: none;
-      transition: transform var(--duration-fast) var(--ease-out-expo),
-        box-shadow var(--duration-normal) var(--ease-out-expo);
-    }
-
-    .nav-cta:active {
-      transform: scale(0.96);
-    }
-
-    .nav-cta:hover {
-      box-shadow: 0 0 24px var(--gold-glow), 0 4px 12px rgba(0, 0, 0, 0.3);
-    }
-
-    /* Mobile menu */
-    .nav-toggle {
-      display: none;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 8px;
-      z-index: 110;
-    }
-
-    .nav-toggle span {
-      display: block;
-      width: 24px;
-      height: 2px;
-      background: var(--text-primary);
-      margin: 6px 0;
-      transition: transform var(--duration-normal) var(--ease-out-expo),
-        opacity var(--duration-fast) ease;
-    }
-
-    .nav-toggle.active span:nth-child(1) {
-      transform: translateY(8px) rotate(45deg);
-    }
-
-    .nav-toggle.active span:nth-child(2) {
-      opacity: 0;
-    }
-
-    .nav-toggle.active span:nth-child(3) {
-      transform: translateY(-8px) rotate(-45deg);
-    }
-
-    @media (max-width: 768px) {
-      .nav-toggle {
-        display: block;
-      }
-
-      .nav-links {
-        position: fixed;
-        top: 0;
-        right: 0;
-        width: 280px;
-        height: 100vh;
-        background: rgba(10, 14, 23, 0.96);
-        backdrop-filter: blur(32px) saturate(180%);
-        -webkit-backdrop-filter: blur(32px) saturate(180%);
-        flex-direction: column;
-        justify-content: center;
-        gap: 2.5rem;
-        transform: translateX(100%);
-        transition: transform var(--duration-slow) var(--ease-out-expo);
-        border-left: 1px solid var(--glass-border);
-      }
-
-      .nav-links.open {
-        transform: translateX(0);
-      }
-
-      .nav-links a {
-        font-size: 1.125rem;
-      }
-    }
-
-    /* ===================================================================
-       HERO
-       =================================================================== */
-
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      position: relative;
-      overflow: hidden;
-      padding-top: 72px;
-    }
-
-    /* Background grid pattern */
-    .hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        repeating-linear-gradient(0deg,
-          rgba(201, 168, 76, 0.03) 0px,
-          rgba(201, 168, 76, 0.03) 1px,
-          transparent 1px,
-          transparent 80px),
-        repeating-linear-gradient(90deg,
-          rgba(201, 168, 76, 0.03) 0px,
-          rgba(201, 168, 76, 0.03) 1px,
-          transparent 1px,
-          transparent 80px);
-      mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black, transparent);
-      -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black, transparent);
-    }
-
-    /* Ambient glow */
-    .hero::after {
-      content: '';
-      position: absolute;
-      top: -20%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 800px;
-      height: 600px;
-      background: radial-gradient(ellipse, var(--gold-glow), transparent 70%);
-      pointer-events: none;
-      opacity: 0.6;
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 1;
-      max-width: 800px;
-    }
-
-    .hero-eyebrow {
-      margin-bottom: var(--space-md);
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeUp 0.8s var(--ease-out-expo) 0.2s forwards;
-    }
-
-    .hero-title {
-      margin-bottom: var(--space-md);
-      opacity: 0;
-      transform: translateY(30px);
-      animation: fadeUp 0.9s var(--ease-out-expo) 0.4s forwards;
-    }
-
-    .hero-title .accent {
-      background: linear-gradient(135deg, var(--gold-light), var(--gold));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .hero-subtitle {
-      max-width: 600px;
-      margin-bottom: var(--space-lg);
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeUp 0.8s var(--ease-out-expo) 0.6s forwards;
-    }
-
-    .hero-actions {
-      display: flex;
-      align-items: center;
-      gap: var(--space-md);
-      flex-wrap: wrap;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeUp 0.8s var(--ease-out-expo) 0.8s forwards;
-    }
-
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-family: 'Inter', sans-serif;
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--text-on-gold);
-      background: linear-gradient(135deg, var(--gold-light), var(--gold));
-      border: none;
-      padding: 1rem 2rem;
-      border-radius: 100px;
-      cursor: pointer;
-      text-decoration: none;
-      transition: transform var(--duration-fast) var(--ease-out-expo),
-        box-shadow var(--duration-normal) var(--ease-out-expo);
-    }
-
-    .btn-primary:active {
-      transform: scale(0.96);
-    }
-
-    .btn-primary:hover {
-      box-shadow: 0 0 40px var(--gold-glow), 0 8px 24px rgba(0, 0, 0, 0.4);
-      transform: translateY(-1px);
-    }
-
-    .btn-primary svg {
-      transition: transform var(--duration-normal) var(--ease-out-expo);
-    }
-
-    .btn-primary:hover svg {
-      transform: translateX(3px);
-    }
-
-    .btn-ghost {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-family: 'Inter', sans-serif;
-      font-size: 1rem;
-      font-weight: 500;
-      color: var(--text-secondary);
-      background: transparent;
-      border: 1px solid var(--glass-border);
-      padding: 1rem 2rem;
-      border-radius: 100px;
-      cursor: pointer;
-      text-decoration: none;
-      transition: color var(--duration-fast) var(--ease-out-expo),
-        border-color var(--duration-fast) var(--ease-out-expo),
-        transform var(--duration-fast) var(--ease-out-expo);
-    }
-
-    .btn-ghost:hover {
-      color: var(--text-primary);
-      border-color: var(--gold-border);
-    }
-
-    .btn-ghost:active {
-      transform: scale(0.96);
-    }
-
-    /* Hero scroll indicator */
-    .scroll-hint {
-      position: absolute;
-      bottom: 2.5rem;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.75rem;
-      opacity: 0;
-      animation: fadeUp 0.8s var(--ease-out-expo) 1.2s forwards;
-    }
-
-    .scroll-hint span {
-      font-size: 0.7rem;
-      font-weight: 500;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-    }
-
-    .scroll-line {
-      width: 1px;
-      height: 40px;
-      background: linear-gradient(to bottom, var(--gold), transparent);
-      animation: scrollPulse 2s ease-in-out infinite;
-    }
-
-    @keyframes scrollPulse {
-
-      0%,
-      100% {
-        opacity: 0.3;
-        transform: scaleY(0.6);
-      }
-
-      50% {
-        opacity: 1;
-        transform: scaleY(1);
-      }
-    }
-
-    /* ===================================================================
-       PAIN POINTS SECTION
-       =================================================================== */
-
-    .pain-section {
-      padding: var(--space-2xl) 0;
-      position: relative;
-    }
-
-    .pain-section::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: linear-gradient(to right, transparent, var(--glass-border), transparent);
-    }
-
-    .section-header {
-      text-align: center;
-      margin-bottom: var(--space-xl);
-    }
-
-    .section-header .eyebrow {
-      margin-bottom: var(--space-sm);
-    }
-
-    .section-header .display-lg {
-      margin-bottom: var(--space-md);
-    }
-
-    .section-header .body-lg {
-      max-width: 640px;
-      margin: 0 auto;
-    }
-
-    .pain-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-    }
-
-    /* Glass card — Apple §12: translucent layers */
-    .pain-card {
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      border-radius: 20px;
-      padding: 2.5rem 2rem;
-      position: relative;
-      overflow: hidden;
-      transition: transform var(--duration-normal) var(--ease-out-expo),
-        border-color var(--duration-normal) var(--ease-out-expo),
-        box-shadow var(--duration-normal) var(--ease-out-expo);
-    }
-
-    .pain-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: linear-gradient(to right, transparent, var(--glass-highlight), transparent);
-    }
-
-    .pain-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(255, 80, 80, 0.2);
-      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.3);
-    }
-
-    .pain-card:active {
-      transform: translateY(-2px) scale(0.99);
-    }
-
-    .pain-icon {
-      width: 56px;
-      height: 56px;
-      border-radius: 16px;
-      background: rgba(255, 80, 80, 0.08);
-      border: 1px solid rgba(255, 80, 80, 0.15);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: var(--space-md);
-      font-size: 1.5rem;
-    }
-
-    .pain-stat {
-      font-size: 2rem;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      color: #FF6B6B;
-      margin-bottom: 0.5rem;
-    }
-
-    .pain-card .heading {
-      margin-bottom: 0.75rem;
-    }
-
-    .pain-card .body {
-      color: var(--text-muted);
-      font-size: 0.9375rem;
-    }
-
-    /* ===================================================================
-       SOLUTION SECTION
-       =================================================================== */
-
-    .solution-section {
-      padding: var(--space-2xl) 0;
-      position: relative;
-    }
-
-    .solution-section::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: linear-gradient(to right, transparent, var(--glass-border), transparent);
-    }
-
-    .solution-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-    }
-
-    .solution-card {
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      border-radius: 20px;
-      padding: 2.5rem 2rem;
-      position: relative;
-      overflow: hidden;
-      transition: transform var(--duration-normal) var(--ease-out-expo),
-        border-color var(--duration-normal) var(--ease-out-expo),
-        box-shadow var(--duration-normal) var(--ease-out-expo);
-    }
-
-    .solution-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: linear-gradient(to right, transparent, var(--glass-highlight), transparent);
-    }
-
-    .solution-card:hover {
-      transform: translateY(-4px);
-      border-color: var(--gold-border);
-      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.3), 0 0 40px var(--gold-glow);
-    }
-
-    .solution-card:active {
-      transform: translateY(-2px) scale(0.99);
-    }
-
-    .solution-icon {
-      width: 56px;
-      height: 56px;
-      border-radius: 16px;
-      background: var(--gold-glow);
-      border: 1px solid var(--gold-border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: var(--space-md);
-      font-size: 1.5rem;
-    }
-
-    .solution-stat {
-      font-size: 2rem;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      background: linear-gradient(135deg, var(--gold-light), var(--gold));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 0.5rem;
-    }
-
-    .solution-card .heading {
-      margin-bottom: 0.75rem;
-    }
-
-    .solution-card .body {
-      color: var(--text-secondary);
-      font-size: 0.9375rem;
-    }
-
-    /* Connector arrow between pain/solution */
-    .transition-arrow {
-      text-align: center;
-      padding: var(--space-lg) 0;
-    }
-
-    .transition-arrow svg {
-      color: var(--gold);
-      animation: bounceDown 2s var(--ease-out-expo) infinite;
-    }
-
-    @keyframes bounceDown {
-
-      0%,
-      100% {
-        transform: translateY(0);
-        opacity: 0.4;
-      }
-
-      50% {
-        transform: translateY(8px);
-        opacity: 1;
-      }
-    }
-
-    /* ===================================================================
-       SERVICES SECTION
-       =================================================================== */
-
-    .services-section {
-      padding: var(--space-2xl) 0;
-      position: relative;
-    }
-
-    .services-section::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: linear-gradient(to right, transparent, var(--glass-border), transparent);
-    }
-
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.5rem;
-    }
-
-    .service-card {
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      border-radius: 24px;
-      padding: 2.5rem;
-      position: relative;
-      overflow: hidden;
-      transition: transform var(--duration-normal) var(--ease-out-expo),
-        border-color var(--duration-normal) var(--ease-out-expo),
-        box-shadow var(--duration-normal) var(--ease-out-expo);
-    }
-
-    .service-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: linear-gradient(to right, transparent, var(--glass-highlight), transparent);
-    }
-
-    .service-card:hover {
-      transform: translateY(-4px);
-      border-color: var(--gold-border);
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35), 0 0 48px var(--gold-glow);
-    }
-
-    .service-card:active {
-      transform: translateY(-2px) scale(0.99);
-    }
-
-    .service-number {
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      color: var(--gold);
-      margin-bottom: var(--space-md);
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .service-number::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: linear-gradient(to right, var(--gold-border), transparent);
-    }
-
-    .service-card .display-md {
-      margin-bottom: var(--space-sm);
-    }
-
-    .service-card .body {
-      margin-bottom: var(--space-md);
-    }
-
-    .service-features {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-    }
-
-    .service-features li {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.75rem;
-      font-size: 0.9375rem;
-      color: var(--text-secondary);
-      line-height: 1.5;
-    }
-
-    .service-features li .check {
-      flex-shrink: 0;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: var(--gold-glow);
-      border: 1px solid var(--gold-border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-top: 2px;
-    }
-
-    .service-features li .check svg {
-      width: 10px;
-      height: 10px;
-      color: var(--gold);
-    }
-
-    /* Featured service card */
-    .service-card.featured {
-      grid-column: 1 / -1;
-      background: linear-gradient(135deg, rgba(201, 168, 76, 0.06), rgba(201, 168, 76, 0.02));
-      border-color: var(--gold-border);
-    }
-
-    .service-card.featured .service-number {
-      color: var(--gold-light);
-    }
-
-    .featured-inner {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2.5rem;
-      align-items: start;
-    }
-
-    /* ===================================================================
-       STATS / SOCIAL PROOF
-       =================================================================== */
-
-    .stats-section {
-      padding: var(--space-2xl) 0;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .stats-section::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: linear-gradient(to right, transparent, var(--glass-border), transparent);
-    }
-
-    /* Large ambient glow behind the stat */
-    .stats-glow {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 600px;
-      height: 400px;
-      background: radial-gradient(ellipse, var(--gold-glow), transparent 70%);
-      pointer-events: none;
-      opacity: 0.5;
-    }
-
-    .stats-content {
-      position: relative;
-      z-index: 1;
-    }
-
-    .stats-content .eyebrow {
-      margin-bottom: var(--space-md);
-    }
-
-    .stat-row {
-      display: flex;
-      align-items: baseline;
-      justify-content: center;
-      gap: 0.25rem;
-      margin-bottom: var(--space-sm);
-    }
-
-    .stat-unit {
-      font-size: clamp(1.5rem, 4vw, 2.5rem);
-      font-weight: 700;
-      color: var(--gold);
-      letter-spacing: -0.02em;
-    }
-
-    .stat-label {
-      font-size: clamp(1rem, 2vw, 1.5rem);
-      font-weight: 500;
-      color: var(--text-secondary);
-      margin-bottom: var(--space-md);
-    }
-
-    .stat-tagline {
-      font-size: clamp(1.125rem, 2vw, 1.375rem);
-      font-weight: 600;
-      color: var(--text-primary);
-      max-width: 600px;
-      margin: 0 auto;
-      line-height: 1.5;
-    }
-
-    .stat-sub {
-      display: inline;
-      background: linear-gradient(135deg, var(--gold-light), var(--gold));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    /* Supporting stats row */
-    .stats-row {
-      display: flex;
-      justify-content: center;
-      gap: 4rem;
-      margin-top: var(--space-xl);
-    }
-
-    .mini-stat {
-      text-align: center;
-    }
-
-    .mini-stat-number {
-      font-size: 2.5rem;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      background: linear-gradient(135deg, var(--gold-light), var(--gold));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .mini-stat-label {
-      font-size: 0.875rem;
-      color: var(--text-muted);
-      margin-top: 0.25rem;
-    }
-
-    /* ===================================================================
-       WHY ZYTHEQ / DIFFERENTIATORS
-       =================================================================== */
-
-    .why-section {
-      padding: var(--space-2xl) 0;
-      position: relative;
-    }
-
-    .why-section::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: linear-gradient(to right, transparent, var(--glass-border), transparent);
-    }
-
-    .why-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-    }
-
-    .why-card {
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      border-radius: 20px;
-      padding: 2rem;
-      transition: transform var(--duration-normal) var(--ease-out-expo),
-        border-color var(--duration-normal) var(--ease-out-expo),
-        box-shadow var(--duration-normal) var(--ease-out-expo);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .why-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: linear-gradient(to right, transparent, var(--glass-highlight), transparent);
-    }
-
-    .why-card:hover {
-      transform: translateY(-3px);
-      border-color: var(--gold-border);
-      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.25);
-    }
-
-    .why-card:active {
-      transform: translateY(-1px) scale(0.99);
-    }
-
-    .why-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      background: var(--gold-glow);
-      border: 1px solid var(--gold-border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: var(--space-sm);
-      font-size: 1.25rem;
-    }
-
-    .why-card .heading {
-      font-size: 1.125rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .why-card .body {
-      font-size: 0.875rem;
-      color: var(--text-muted);
-      line-height: 1.6;
-    }
-
-    /* ===================================================================
-       CONTACT / CTA
-       =================================================================== */
-
-    .contact-section {
-      padding: var(--space-2xl) 0;
-      position: relative;
-    }
-
-    .contact-section::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: linear-gradient(to right, transparent, var(--glass-border), transparent);
-    }
-
-    .contact-wrapper {
-      background: linear-gradient(135deg, rgba(201, 168, 76, 0.06), rgba(201, 168, 76, 0.02));
-      border: 1px solid var(--gold-border);
-      border-radius: 32px;
-      padding: clamp(3rem, 6vw, 5rem);
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .contact-wrapper::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: linear-gradient(to right, transparent, var(--gold), transparent);
-      opacity: 0.3;
-    }
-
-    /* Glow behind CTA */
-    .contact-wrapper::after {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 500px;
-      height: 300px;
-      background: radial-gradient(ellipse, var(--gold-glow), transparent 70%);
-      pointer-events: none;
-      opacity: 0.3;
-    }
-
-    .contact-inner {
-      position: relative;
-      z-index: 1;
-    }
-
-    .contact-inner .eyebrow {
-      margin-bottom: var(--space-sm);
-    }
-
-    .contact-inner .display-lg {
-      margin-bottom: var(--space-sm);
-    }
-
-    .contact-inner .body-lg {
-      max-width: 520px;
-      margin: 0 auto var(--space-lg);
-    }
-
-    .contact-methods {
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
-      flex-wrap: wrap;
-      margin-bottom: var(--space-lg);
-    }
-
-    .contact-method {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      padding: 0.875rem 1.5rem;
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      border-radius: 100px;
-      text-decoration: none;
-      color: var(--text-secondary);
-      font-size: 0.9375rem;
-      font-weight: 500;
-      transition: color var(--duration-fast) var(--ease-out-expo),
-        border-color var(--duration-fast) var(--ease-out-expo),
-        background var(--duration-fast) var(--ease-out-expo),
-        transform var(--duration-fast) var(--ease-out-expo);
-    }
-
-    .contact-method:hover {
-      color: var(--text-primary);
-      border-color: var(--gold-border);
-      background: rgba(201, 168, 76, 0.06);
-    }
-
-    .contact-method:active {
-      transform: scale(0.97);
-    }
-
-    .contact-method svg {
-      width: 18px;
-      height: 18px;
-      color: var(--gold);
-      flex-shrink: 0;
-    }
-
-    /* ===================================================================
-       FOOTER
-       =================================================================== */
-
-    .footer {
-      padding: var(--space-lg) 0;
-      border-top: 1px solid var(--glass-border);
-    }
-
-    .footer-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: var(--space-sm);
-    }
-
-    .footer-brand {
-      font-size: 1rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      color: var(--text-muted);
-    }
-
-    .footer-brand span {
-      color: var(--gold);
-      opacity: 0.6;
-    }
-
-    .footer-tagline {
-      font-size: 0.8125rem;
-      color: var(--text-muted);
-      font-style: italic;
-    }
-
-    .footer-copy {
-      font-size: 0.8125rem;
-      color: var(--text-muted);
-    }
-
-    /* ===================================================================
-       SCROLL REVEAL ANIMATIONS
-       =================================================================== */
-
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(24px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(32px);
-      transition: opacity var(--duration-slow) var(--ease-out-expo),
-        transform var(--duration-slow) var(--ease-out-expo);
-    }
-
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* Staggered children */
-    .reveal-stagger .reveal-child {
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity var(--duration-slow) var(--ease-out-expo),
-        transform var(--duration-slow) var(--ease-out-expo);
-    }
-
-    .reveal-stagger.visible .reveal-child {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .reveal-stagger.visible .reveal-child:nth-child(1) {
-      transition-delay: 0ms;
-    }
-
-    .reveal-stagger.visible .reveal-child:nth-child(2) {
-      transition-delay: 100ms;
-    }
-
-    .reveal-stagger.visible .reveal-child:nth-child(3) {
-      transition-delay: 200ms;
-    }
-
-    .reveal-stagger.visible .reveal-child:nth-child(4) {
-      transition-delay: 300ms;
-    }
-
-    .reveal-stagger.visible .reveal-child:nth-child(5) {
-      transition-delay: 400ms;
-    }
-
-    .reveal-stagger.visible .reveal-child:nth-child(6) {
-      transition-delay: 500ms;
-    }
-
-    /* ===================================================================
-       REDUCED MOTION — Apple §14
-       =================================================================== */
-
-    @media (prefers-reduced-motion: reduce) {
-
-      *,
-      *::before,
-      *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-      }
-
-      .reveal {
-        opacity: 1;
-        transform: none;
-      }
-
-      .reveal-stagger .reveal-child {
-        opacity: 1;
-        transform: none;
-      }
-
-      html {
-        scroll-behavior: auto;
-      }
-    }
-
-    @media (prefers-reduced-transparency: reduce) {
-      .nav.scrolled {
-        background: var(--bg-deep);
-        backdrop-filter: none;
-      }
-
-      .pain-card,
-      .solution-card,
-      .service-card,
-      .why-card {
-        background: var(--bg-card);
-      }
-    }
-
-    /* ===================================================================
-       RESPONSIVE
-       =================================================================== */
-
-    @media (max-width: 1024px) {
-
-      .pain-grid,
-      .solution-grid,
-      .why-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .featured-inner {
-        grid-template-columns: 1fr;
-      }
-
-      .stats-row {
-        gap: 2.5rem;
-      }
-    }
-
-    @media (max-width: 768px) {
-
-      .pain-grid,
-      .solution-grid,
-      .services-grid,
-      .why-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .stats-row {
-        flex-direction: column;
-        gap: 2rem;
-      }
-
-      .contact-methods {
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .hero-actions {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .footer-inner {
-        flex-direction: column;
-        text-align: center;
-      }
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
 </head>
-
 <body>
+<x-dc>
+<helmet>
+<title>Zytheq | Tech Recruiting and Executive Search Firm in the San Francisco Bay Area</title>
+<meta name="description" content="Zytheq is a San Francisco Bay Area tech recruiting and executive search firm. We hire software engineers, data and AI teams, product leaders and executives for Fortune 500 and venture backed companies. Median time to offer: 21 days." />
+<meta name="keywords" content="tech recruiting firm San Francisco, Bay Area recruiters, software engineer recruiting agency, executive search Silicon Valley, staffing agency San Francisco, AI recruiting, RPO Bay Area" />
+<link rel="canonical" href="https://zytheq.com/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Zytheq" />
+<meta property="og:title" content="Zytheq | Tech Recruiting and Executive Search, San Francisco Bay Area" />
+<meta property="og:description" content="We take a written requirement, map the market against it, and deliver a shortlist where every candidate is briefed, referenced and ready to sign." />
+<meta property="og:url" content="https://zytheq.com/" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://cdn.simpleicons.org" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800&display=swap" />
+<link rel="stylesheet" href="_ds/modernist-1da8254e-a0dc-4741-b1c4-69410e6ff2f2/styles.css" />
+<script src="_ds/modernist-1da8254e-a0dc-4741-b1c4-69410e6ff2f2/_ds_bundle.js"></script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"EmploymentAgency","name":"Zytheq","url":"https://zytheq.com/","email":"hello@zytheq.com","telephone":"+1-415-555-0182","description":"Tech recruiting and executive search firm serving the San Francisco Bay Area. Engineering, data and AI, product, go to market and executive hiring.","areaServed":"United States","address":{"@type":"PostalAddress","streetAddress":"1 Market Street, Suite 300","addressLocality":"San Francisco","addressRegion":"CA","postalCode":"94105","addressCountry":"US"},"sameAs":["https://www.linkedin.com/company/zytheq"]}
+</script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { margin: 0; text-wrap: pretty; background: var(--color-bg); color: var(--color-text); }
+  a { color: var(--color-accent-700); text-decoration: none; text-underline-offset: 3px; }
+  a:hover { color: var(--color-accent); text-decoration: underline; }
+  ::selection { background: var(--color-accent-200); }
+</style>
+</helmet>
 
-  <!-- ============================================================
-       NAVIGATION
-       ============================================================ -->
-  <nav class="nav" id="main-nav">
-    <div class="nav-inner">
-      <a href="#" class="nav-logo" id="nav-logo">ZYTHE<span>Q</span></a>
+<div style="background: var(--color-bg); color: var(--color-text); font-family: var(--font-body); font-size: 16px; line-height: 1.6; min-height: 100vh; overflow-x: hidden;">
 
-      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-
-      <ul class="nav-links" id="nav-links">
-        <li><a href="#problem" id="nav-problem">Problem</a></li>
-        <li><a href="#solutions" id="nav-solutions">Solutions</a></li>
-        <li><a href="#services" id="nav-services">Services</a></li>
-        <li><a href="#results" id="nav-results">Results</a></li>
-        <li><a href="#contact" class="nav-cta" id="nav-contact-cta">Let's Talk</a></li>
-      </ul>
+  <nav class="nav" style="position: sticky; top: 0; z-index: 30; background: var(--color-bg); flex-wrap: wrap; gap: 12px 20px; padding: 14px clamp(20px, 5vw, 72px);">
+    <a href="#top" style="font-family: var(--font-heading); font-weight: 800; font-size: 20px; letter-spacing: -0.01em; color: var(--color-text); margin-right: auto; display: flex; align-items: center; gap: 9px; text-decoration: none;">
+      <span style="width: 12px; height: 12px; background: var(--color-accent); display: block;"></span>
+      ZYTHEQ
+    </a>
+    <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 8px 20px; font-size: 14px;">
+      <a href="#services" style="color: var(--color-text);">Services</a>
+      <a href="#clients" style="color: var(--color-text);">Clients</a>
+      <a href="#process" style="color: var(--color-text);">Process</a>
+      <a href="#jobs" style="color: var(--color-text);">Open jobs</a>
+      <a href="#contact" class="btn btn-primary" style="text-decoration: none; color: var(--color-bg); white-space: nowrap;">Start a search</a>
     </div>
   </nav>
 
-  <!-- ============================================================
-       HERO
-       ============================================================ -->
-  <section class="hero" id="hero">
-    <div class="container">
-      <div class="hero-content">
-        <p class="eyebrow hero-eyebrow">Zytheq - Everything Included, But Better</p>
-        <h1 class="display-xl hero-title">
-          Your candidates are failing interviews.<br>
-          <span class="accent">It's not their fault.</span>
-        </h1>
-        <p class="body-lg hero-subtitle">
-          Broken Remote dekstops, outdated Google docs/otter method, Just copy pasting.
-          the industry has been
-          settling for "good enough" for 7 years. We rebuilt every piece from scratch.
-        </p>
-        <div class="hero-actions">
-          <a href="#solutions" class="btn-primary" id="hero-cta">
-            See how we fix it
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                stroke-linejoin="round" />
-            </svg>
-          </a>
-          <a href="#contact" class="btn-ghost" id="hero-contact">
-            Talk to us
-          </a>
+  <div id="top" style="max-width: 1200px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 72px);">
+
+    <section style="padding: clamp(48px, 8vw, 112px) 0 clamp(36px, 5vw, 84px);">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: clamp(28px, 4vw, 72px); align-items: end;">
+        <div>
+          <span style="display: block; font-size: 13px; line-height: 1; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-accent-700); margin: 0 0 18px;">Tech recruiting, San Francisco Bay Area</span>
+          <h1 style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(38px, 6.4vw, 82px); line-height: 1.05; letter-spacing: -0.025em; margin: 0 0 24px; margin-left: -0.05em;">
+            <span style="display: block;">We don't send résumés.</span>
+            <span style="display: block;">We send the hire.</span>
+          </h1>
+          <p style="font-size: clamp(16px, 1.4vw, 18px); line-height: 1.65; max-width: 54ch; margin: 0 0 28px; color: color-mix(in srgb, var(--color-text) 82%, transparent);">
+            Zytheq is a specialist recruiting firm for Bay Area technology companies. We take your written requirement, map the market against it, and deliver a shortlist where every candidate has been briefed, assessed and referenced. Engineering, data and AI, product, go to market and executive search.
+          </p>
+          <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+            <a href="#contact" class="btn btn-primary" style="color: var(--color-bg); text-decoration: none;">Brief us on a role</a>
+            <a href="#candidates" class="btn btn-secondary" style="color: var(--color-text); text-decoration: none;">I'm a candidate</a>
+          </div>
+        </div>
+        <div style="display: grid; gap: 0; border-top: 2px solid var(--color-divider);">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--color-divider);">
+            <span style="font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 70%, transparent);">Median time to offer</span>
+            <span style="font-family: var(--font-heading); font-weight: 800; font-size: 22px; color: var(--color-accent);">21 days</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--color-divider);">
+            <span style="font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 70%, transparent);">Shortlist to hire ratio</span>
+            <span style="font-family: var(--font-heading); font-weight: 800; font-size: 22px; color: var(--color-accent);">3 : 1</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--color-divider);">
+            <span style="font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 70%, transparent);">One year retention</span>
+            <span style="font-family: var(--font-heading); font-weight: 800; font-size: 22px; color: var(--color-accent);">94%</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 14px 0;">
+            <span style="font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 70%, transparent);">Placements to date</span>
+            <span style="font-family: var(--font-heading); font-weight: 800; font-size: 22px; color: var(--color-accent);">480+</span>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="scroll-hint">
-      <span>Scroll</span>
-      <div class="scroll-line"></div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ============================================================
-       PAIN POINTS
-       ============================================================ -->
-  <section class="pain-section" id="problem">
-    <div class="container">
-      <div class="section-header reveal">
-        <p class="eyebrow">The Problem</p>
-        <h2 class="display-lg">The industry is broken.<br>Here's the proof.</h2>
-        <p class="body-lg">Every day, businesses like yours lose candidates to problems that should have been solved
-          years ago.</p>
+    <hr style="height: 2px; border: 0; margin: 0; background: var(--color-divider);" />
+
+    <section id="clients" style="padding: clamp(36px, 5vw, 72px) 0;">
+      <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 12px 32px; margin-bottom: 32px;">
+        <h2 style="font-size: 13px; line-height: 1; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-accent-700); margin: 0; font-weight: 800;">Companies we hire for</h2>
+        <span style="font-size: 13px; letter-spacing: 0.04em; color: color-mix(in srgb, var(--color-text) 60%, transparent);">Fortune 500, big tech, and Series A to D</span>
       </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); border-top: 2px solid var(--color-divider); border-left: 1px solid var(--color-divider);">
+        <sc-for list="{{ clients }}" as="c" hint-placeholder-count="18">
+          <div style="border-bottom: 1px solid var(--color-divider); border-right: 1px solid var(--color-divider); padding: 24px 18px; display: flex; flex-direction: column; gap: 12px; min-height: 104px; justify-content: center;">
+            <img src="{{ c.logo }}" alt="{{ c.alt }}" loading="lazy" width="96" height="26" style="display: block; height: 26px; width: auto; max-width: 100%; object-fit: contain; object-position: left center; opacity: 0.9;" />
+            <span style="font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 60%, transparent);">{{ c.note }}</span>
+          </div>
+        </sc-for>
+      </div>
+      <p style="font-size: 13px; line-height: 1.6; margin: 20px 0 0; color: color-mix(in srgb, var(--color-text) 60%, transparent); max-width: 74ch;">Logos are shown where mandates are public and permission is on file. All trademarks belong to their owners. Confidential searches are referenced by sector on request.</p>
+    </section>
 
-      <div class="pain-grid reveal-stagger">
-        <div class="pain-card reveal-child">
-          <div class="pain-icon">🕐</div>
-          <div class="pain-stat">4.5 - 5 s</div>
-          <h3 class="heading">Painfully Slow Answers</h3>
-          <p class="body">99.99% of trainers take 4.5-5 seconds to Answer. By the time they give the answer, the
-            candidate has already lost confidence and the moment is gone.</p>
+    <hr style="height: 2px; border: 0; margin: 0; background: var(--color-divider);" />
+
+    <section id="services" style="padding: clamp(40px, 6vw, 88px) 0 clamp(24px, 3vw, 48px);">
+      <h2 style="font-size: 13px; line-height: 1; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-accent-700); margin: 0 0 32px; font-weight: 800;">Recruiting services</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 0; border-top: 2px solid var(--color-divider);">
+        <div style="padding: 28px clamp(0px, 3vw, 40px) 32px 0; border-bottom: 1px solid var(--color-divider);">
+          <p style="font-family: var(--font-heading); font-weight: 800; font-size: 14px; margin: 0 0 14px; color: var(--color-accent);">01</p>
+          <h3 style="font-family: var(--font-heading); font-weight: 800; font-size: 25px; line-height: 1.15; letter-spacing: -0.015em; margin: 0 0 12px;">Contingency search</h3>
+          <p style="font-size: 15.5px; line-height: 1.65; margin: 0; color: color-mix(in srgb, var(--color-text) 78%, transparent); max-width: 46ch;">Individual contributor through senior hiring across software engineering, data, product, design and revenue teams. You pay on the signed offer, never on activity.</p>
         </div>
-
-        <div class="pain-card reveal-child">
-          <div class="pain-icon">📄</div>
-          <div class="pain-stat">2017</div>
-          <h3 class="heading">Outdated Methods</h3>
-          <p class="body">The same standard templates from years ago. Google docs/ otter , chatgpt </p>
+        <div style="padding: 28px clamp(0px, 3vw, 40px) 32px 0; border-bottom: 1px solid var(--color-divider);">
+          <p style="font-family: var(--font-heading); font-weight: 800; font-size: 14px; margin: 0 0 14px; color: var(--color-accent);">02</p>
+          <h3 style="font-family: var(--font-heading); font-weight: 800; font-size: 25px; line-height: 1.15; letter-spacing: -0.015em; margin: 0 0 12px;">Retained executive search</h3>
+          <p style="font-size: 15.5px; line-height: 1.65; margin: 0; color: color-mix(in srgb, var(--color-text) 78%, transparent); max-width: 46ch;">Director through C level mandates run as a mapped process: full market coverage, calibrated scorecards, structured references, and a written market report you keep.</p>
         </div>
-
-        <div class="pain-card reveal-child">
-          <div class="pain-icon">🤖</div>
-          <div class="pain-stat">0</div>
-          <h3 class="heading">Zero Real Guidance</h3>
-          <p class="body">Just simply copying from ChatGPT and pasting without knowing if the asnwer is right</p>
+        <div style="padding: 28px clamp(0px, 3vw, 40px) 32px 0; border-bottom: 1px solid var(--color-divider);">
+          <p style="font-family: var(--font-heading); font-weight: 800; font-size: 14px; margin: 0 0 14px; color: var(--color-accent);">03</p>
+          <h3 style="font-family: var(--font-heading); font-weight: 800; font-size: 25px; line-height: 1.15; letter-spacing: -0.015em; margin: 0 0 12px;">Embedded recruiting and RPO</h3>
+          <p style="font-size: 15.5px; line-height: 1.65; margin: 0; color: color-mix(in srgb, var(--color-text) 78%, transparent); max-width: 46ch;">A Zytheq recruiter inside your team on a monthly retainer, using your ATS, your stand ups and your employer brand. Built for teams scaling past thirty hires a year.</p>
+        </div>
+        <div style="padding: 28px clamp(0px, 3vw, 40px) 32px 0; border-bottom: 1px solid var(--color-divider);">
+          <p style="font-family: var(--font-heading); font-weight: 800; font-size: 14px; margin: 0 0 14px; color: var(--color-accent);">04</p>
+          <h3 style="font-family: var(--font-heading); font-weight: 800; font-size: 25px; line-height: 1.15; letter-spacing: -0.015em; margin: 0 0 12px;">Compensation and market data</h3>
+          <p style="font-size: 15.5px; line-height: 1.65; margin: 0; color: color-mix(in srgb, var(--color-text) 78%, transparent); max-width: 46ch;">Bay Area compensation benchmarks, talent maps and competitor org charts, so the requirement you write is a requirement the market can actually fill.</p>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ============================================================
-       TRANSITION
-       ============================================================ -->
-  <div class="transition-arrow reveal">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-      <path d="M12 4v16M6 14l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-        stroke-linejoin="round" />
-    </svg>
+    <section id="process" style="padding: clamp(40px, 6vw, 80px) 0;">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: clamp(28px, 5vw, 88px); align-items: center;">
+        <div>
+          <h2 style="font-size: 13px; line-height: 1; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-accent-700); margin: 0 0 18px; font-weight: 800;">Our hiring process</h2>
+          <p style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(28px, 3.4vw, 40px); line-height: 1.1; letter-spacing: -0.02em; margin: 0 0 20px;">Three weeks, four fixed checkpoints</p>
+          <div style="display: grid; gap: 0; border-top: 1px solid var(--color-divider);">
+            <div style="display: grid; grid-template-columns: 64px 1fr; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--color-divider);">
+              <span style="font-family: var(--font-heading); font-weight: 800; font-size: 13px; letter-spacing: 0.06em; color: var(--color-accent);">DAY 0</span>
+              <span style="font-size: 15px; line-height: 1.6;"><strong style="font-weight: 600;">Calibration.</strong> Ninety minutes with the hiring manager. We leave with a scorecard, not a job description.</span>
+            </div>
+            <div style="display: grid; grid-template-columns: 64px 1fr; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--color-divider);">
+              <span style="font-family: var(--font-heading); font-weight: 800; font-size: 13px; letter-spacing: 0.06em; color: var(--color-accent);">DAY 5</span>
+              <span style="font-size: 15px; line-height: 1.6;"><strong style="font-weight: 600;">Market map.</strong> Every viable company and candidate cohort, sized and ranked, with real Bay Area compensation attached.</span>
+            </div>
+            <div style="display: grid; grid-template-columns: 64px 1fr; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--color-divider);">
+              <span style="font-family: var(--font-heading); font-weight: 800; font-size: 13px; letter-spacing: 0.06em; color: var(--color-accent);">DAY 12</span>
+              <span style="font-size: 15px; line-height: 1.6;"><strong style="font-weight: 600;">Shortlist.</strong> Five to seven candidates, each with a written assessment against the scorecard.</span>
+            </div>
+            <div style="display: grid; grid-template-columns: 64px 1fr; gap: 16px; padding: 16px 0;">
+              <span style="font-family: var(--font-heading); font-weight: 800; font-size: 13px; letter-spacing: 0.06em; color: var(--color-accent);">DAY 21</span>
+              <span style="font-size: 15px; line-height: 1.6;"><strong style="font-weight: 600;">Close.</strong> We run the offer conversation, the counter offer risk and the notice period, then stay through onboarding.</span>
+            </div>
+          </div>
+        </div>
+        <figure class="grayscale" style="margin: 0;">
+          <img src="assets/team.jpg" alt="Zytheq recruiters in a calibration session with a hiring manager" style="display: block; width: 100%; aspect-ratio: 951 / 665; object-fit: cover;" />
+        </figure>
+      </div>
+    </section>
+
+    <hr style="height: 2px; border: 0; margin: 0; background: var(--color-divider);" />
+
+    <section id="jobs" style="padding: clamp(40px, 6vw, 80px) 0;">
+      <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 12px 32px; margin-bottom: 28px;">
+        <div>
+          <span style="display: block; font-size: 13px; line-height: 1; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-accent-700); margin: 0 0 14px;">Live searches</span>
+          <h2 style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(26px, 3.2vw, 38px); line-height: 1.1; letter-spacing: -0.02em; margin: 0;">Open jobs this quarter</h2>
+        </div>
+        <a href="mailto:talent@zytheq.com?subject=Candidate%20introduction" class="btn btn-secondary" style="color: var(--color-text); text-decoration: none;">Send your profile</a>
+      </div>
+      <div style="overflow-x: auto;">
+        <table class="table" style="min-width: 640px;">
+          <thead>
+            <tr>
+              <th scope="col">Role</th>
+              <th scope="col">Practice</th>
+              <th scope="col">Location</th>
+              <th scope="col">Base range</th>
+              <th scope="col">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <sc-for list="{{ roles }}" as="r" hint-placeholder-count="6">
+              <tr>
+                <td style="font-weight: 600;">{{ r.role }}</td>
+                <td style="color: color-mix(in srgb, var(--color-text) 75%, transparent);">{{ r.practice }}</td>
+                <td style="color: color-mix(in srgb, var(--color-text) 75%, transparent);">{{ r.location }}</td>
+                <td style="font-variant-numeric: tabular-nums;">{{ r.band }}</td>
+                <td><span class="{{ r.tagClass }}">{{ r.status }}</span></td>
+              </tr>
+            </sc-for>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <hr style="height: 2px; border: 0; margin: 0; background: var(--color-divider);" />
+
+    <section id="candidates" style="padding: clamp(40px, 6vw, 80px) 0;">
+      <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 32px;">
+        <button type="button" class="{{ clientsTabClass }}" onClick="{{ showClients }}">For employers</button>
+        <button type="button" class="{{ candidatesTabClass }}" onClick="{{ showCandidates }}">For candidates</button>
+      </div>
+      <sc-if value="{{ isClients }}" hint-placeholder-val="{{ true }}">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: clamp(24px, 3vw, 48px);">
+          <div>
+            <h3 style="font-family: var(--font-heading); font-weight: 800; font-size: 22px; line-height: 1.15; letter-spacing: -0.015em; margin: 0 0 12px;">One point of contact</h3>
+            <p style="font-size: 15px; line-height: 1.65; margin: 0; color: color-mix(in srgb, var(--color-text) 78%, transparent);">The recruiter who takes your brief runs the search and closes the offer. No handover to a delivery pod you have never met.</p>
+          </div>
+          <div>
+            <h3 style="font-family: var(--font-heading); font-weight: 800; font-size: 22px; line-height: 1.15; letter-spacing: -0.015em; margin: 0 0 12px;">Written assessments</h3>
+            <p style="font-size: 15px; line-height: 1.65; margin: 0; color: color-mix(in srgb, var(--color-text) 78%, transparent);">Every shortlisted candidate arrives with a page on capability, motivation, compensation expectation and risk. Your panel reads it before the first call.</p>
+          </div>
+          <div>
+            <h3 style="font-family: var(--font-heading); font-weight: 800; font-size: 22px; line-height: 1.15; letter-spacing: -0.015em; margin: 0 0 12px;">Six month guarantee</h3>
+            <p style="font-size: 15px; line-height: 1.65; margin: 0; color: color-mix(in srgb, var(--color-text) 78%, transparent);">If a placement leaves inside six months for any reason within our control, we re run the search at no fee.</p>
+          </div>
+        </div>
+      </sc-if>
+      <sc-if value="{{ isCandidates }}" hint-placeholder-val="{{ false }}">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: clamp(24px, 3vw, 48px);">
+          <div>
+            <h3 style="font-family: var(--font-heading); font-weight: 800; font-size: 22px; line-height: 1.15; letter-spacing: -0.015em; margin: 0 0 12px;">No spray and pray</h3>
+            <p style="font-size: 15px; line-height: 1.65; margin: 0; color: color-mix(in srgb, var(--color-text) 78%, transparent);">Your profile goes nowhere without your written consent, per company, per role. You get the pay range before the first interview, as California law requires.</p>
+          </div>
+          <div>
+            <h3 style="font-family: var(--font-heading); font-weight: 800; font-size: 22px; line-height: 1.15; letter-spacing: -0.015em; margin: 0 0 12px;">Real interview prep</h3>
+            <p style="font-size: 15px; line-height: 1.65; margin: 0; color: color-mix(in srgb, var(--color-text) 78%, transparent);">Panel names, loop format, past questions, and what the hiring manager is actually worried about. Plus honest feedback if the answer is no.</p>
+          </div>
+          <div>
+            <h3 style="font-family: var(--font-heading); font-weight: 800; font-size: 22px; line-height: 1.15; letter-spacing: -0.015em; margin: 0 0 12px;">We negotiate for you</h3>
+            <p style="font-size: 15px; line-height: 1.65; margin: 0; color: color-mix(in srgb, var(--color-text) 78%, transparent);">Base, equity refresh, sign on bonus and start date. Candidates we represent close an average of 14% above their first number.</p>
+          </div>
+        </div>
+      </sc-if>
+    </section>
+
+    <hr style="height: 2px; border: 0; margin: 0; background: var(--color-divider);" />
+
+    <section style="padding: clamp(44px, 6vw, 88px) 0;">
+      <figure style="margin: 0;">
+        <blockquote style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(24px, 2.9vw, 36px); line-height: 1.2; letter-spacing: -0.02em; max-width: 34ch; margin: 0 0 28px;">“Four platform engineers in five weeks, after two agencies spent a quarter sending us noise. Zytheq read the scorecard and worked it.”</blockquote>
+        <figcaption style="font-size: 15px; line-height: 1.6; color: color-mix(in srgb, var(--color-text) 70%, transparent); margin: 0;">VP Engineering, Fortune 100 payments platform, San Francisco</figcaption>
+      </figure>
+    </section>
+
+    <hr style="height: 2px; border: 0; margin: 0; background: var(--color-divider);" />
+
+    <section id="contact" style="padding: clamp(44px, 6vw, 88px) 0;">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: clamp(32px, 5vw, 80px);">
+        <div>
+          <h2 style="font-size: 13px; line-height: 1; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-accent-700); margin: 0 0 18px; font-weight: 800;">Start a search</h2>
+          <p style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(28px, 3.6vw, 44px); line-height: 1.08; letter-spacing: -0.02em; margin: 0 0 20px;">Tell us the role. We will tell you what it takes to fill it.</p>
+          <p style="font-size: 15.5px; line-height: 1.65; margin: 0 0 28px; max-width: 46ch; color: color-mix(in srgb, var(--color-text) 78%, transparent);">Send a brief and we reply inside one business day with a market read, a realistic pay range and a delivery timeline. No fee until someone signs.</p>
+          <div style="display: grid; gap: 0; border-top: 1px solid var(--color-divider); max-width: 420px;">
+            <div style="display: flex; justify-content: space-between; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--color-divider); font-size: 14px;">
+              <span style="color: color-mix(in srgb, var(--color-text) 60%, transparent); letter-spacing: 0.04em; text-transform: uppercase; font-size: 12px;">New searches</span>
+              <a href="mailto:hello@zytheq.com">hello@zytheq.com</a>
+            </div>
+            <div style="display: flex; justify-content: space-between; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--color-divider); font-size: 14px;">
+              <span style="color: color-mix(in srgb, var(--color-text) 60%, transparent); letter-spacing: 0.04em; text-transform: uppercase; font-size: 12px;">Candidates</span>
+              <a href="mailto:talent@zytheq.com">talent@zytheq.com</a>
+            </div>
+            <div style="display: flex; justify-content: space-between; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--color-divider); font-size: 14px;">
+              <span style="color: color-mix(in srgb, var(--color-text) 60%, transparent); letter-spacing: 0.04em; text-transform: uppercase; font-size: 12px;">Partnerships</span>
+              <a href="mailto:partners@zytheq.com">partners@zytheq.com</a>
+            </div>
+            <div style="display: flex; justify-content: space-between; gap: 16px; padding: 12px 0; font-size: 14px;">
+              <span style="color: color-mix(in srgb, var(--color-text) 60%, transparent); letter-spacing: 0.04em; text-transform: uppercase; font-size: 12px;">Press</span>
+              <a href="mailto:press@zytheq.com">press@zytheq.com</a>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+            <div style="border: 2px solid var(--color-accent); padding: clamp(24px, 3vw, 40px);">
+              <h3 style="font-family: var(--font-heading); font-weight: 800; font-size: 24px; line-height: 1.15; margin: 0 0 12px;">Brief received.</h3>
+              <p style="font-size: 15px; line-height: 1.65; margin: 0 0 20px; color: color-mix(in srgb, var(--color-text) 78%, transparent);">A recruiter will come back to you inside one business day from hello@zytheq.com. If it is urgent, reply to that thread and mark it priority.</p>
+              <button type="button" class="btn btn-secondary" onClick="{{ resetForm }}">Send another brief</button>
+            </div>
+          </sc-if>
+          <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
+            <form onSubmit="{{ onSubmit }}" style="display: grid; gap: 16px; border-top: 2px solid var(--color-divider); padding-top: 24px;">
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px;">
+                <div class="field">
+                  <label for="zq-name">Your name</label>
+                  <input class="input" id="zq-name" name="name" type="text" required="true" placeholder="Dana Whitfield" />
+                </div>
+                <div class="field">
+                  <label for="zq-company">Company</label>
+                  <input class="input" id="zq-company" name="company" type="text" required="true" placeholder="Acme Inc." />
+                </div>
+              </div>
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px;">
+                <div class="field">
+                  <label for="zq-email">Work email</label>
+                  <input class="input" id="zq-email" name="email" type="email" required="true" placeholder="you@company.com" />
+                </div>
+                <div class="field">
+                  <label for="zq-count">Roles to fill</label>
+                  <select class="input" id="zq-count" name="count">
+                    <option>1 role</option>
+                    <option>2 to 5 roles</option>
+                    <option>6 to 15 roles</option>
+                    <option>15 or more, embedded team</option>
+                  </select>
+                </div>
+              </div>
+              <div class="field">
+                <label for="zq-practice">Practice</label>
+                <select class="input" id="zq-practice" name="practice">
+                  <option>Software engineering</option>
+                  <option>Data and AI</option>
+                  <option>Product and design</option>
+                  <option>Go to market</option>
+                  <option>Executive and C level</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="zq-brief">The brief</label>
+                <textarea class="input" id="zq-brief" name="brief" placeholder="Role, level, location, pay range, and what the last hire got wrong."></textarea>
+              </div>
+              <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 14px;">
+                <button type="submit" class="btn btn-primary">Send the brief</button>
+                <span style="font-size: 12.5px; line-height: 1.5; color: color-mix(in srgb, var(--color-text) 60%, transparent);">Goes to hello@zytheq.com. We never share your brief.</span>
+              </div>
+            </form>
+          </sc-if>
+        </div>
+      </div>
+    </section>
+
   </div>
 
-  <!-- ============================================================
-       SOLUTIONS
-       ============================================================ -->
-  <section class="solution-section" id="solutions">
-    <div class="container">
-      <div class="section-header reveal">
-        <p class="eyebrow">Our Answer</p>
-        <h2 class="display-lg">We rebuilt every<br>broken piece.</h2>
-        <p class="body-lg">Not patches. Not workarounds. Purpose-built solutions for every pain point in the hiring
-          process.</p>
-      </div>
-
-      <div class="solution-grid reveal-stagger">
-        <div class="solution-card reveal-child">
-          <div class="solution-icon">⚡</div>
-          <div class="solution-stat" id="speed-counter">2.0s</div>
-          <h3 class="heading">2- 2.5 Second Speed</h3>
-          <p class="body">Our answer comes within 2-2.5 seconds , more than twice as fast as the industry average. </p>
-        </div>
-
-        <div class="solution-card reveal-child">
-          <div class="solution-icon">📋</div>
-          <div class="solution-stat">Invisible</div>
-          <h3 class="heading">Inhouse software</h3>
-          <p class="body">Forget screensharing and scrolling , candidate will be at ease due to indetectable software
-            and auto scrolling as they speak</p>
-        </div>
-
-        <div class="solution-card reveal-child">
-          <div class="solution-icon">🤝</div>
-          <div class="solution-stat">Real answers</div>
-          <h3 class="heading">Custom Made LLM</h3>
-          <p class="body">which gives accurate and most humanized answer.</p>
-        </div>
+  <section style="background: var(--color-accent); color: var(--color-bg);">
+    <div style="max-width: 1200px; margin: 0 auto; padding: clamp(48px, 7vw, 96px) clamp(20px, 5vw, 72px);">
+      <p style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(32px, 5.2vw, 60px); line-height: 1.06; letter-spacing: -0.025em; margin: 0 0 28px; margin-left: -0.05em; color: var(--color-bg);">
+        <span style="display: block;">Hiring is a deadline.</span>
+        <span style="display: block;">Treat it like one.</span>
+      </p>
+      <div style="display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center;">
+        <a href="mailto:hello@zytheq.com?subject=New%20search" class="btn" style="background: var(--color-bg); color: var(--color-accent); text-decoration: none;">hello@zytheq.com</a>
+        <a href="tel:+14155550182" style="color: var(--color-bg); font-size: 15px; text-decoration: none;">+1 (415) 555 0182</a>
       </div>
     </div>
   </section>
 
-  <!-- ============================================================
-       SERVICES
-       ============================================================ -->
-  <section class="services-section" id="services">
-    <div class="container">
-      <div class="section-header reveal">
-        <p class="eyebrow">What We Offer</p>
-        <h2 class="display-lg">Four pillars.<br>One complete solution.</h2>
-        <p class="body-lg">From individual interview sessions to full end-to-end onboarding — we handle it all, and we
-          handle it better.</p>
-      </div>
-
-      <div class="services-grid reveal-stagger">
-
-        <!-- Service 1: Interview Sessions -->
-        <div class="service-card reveal-child">
-          <div class="service-number">01 - INTERVIEW SESSIONS</div>
-          <h3 class="display-md">Interview<br>Sessions</h3>
-          <p class="body">The fastest, most reliable interview platform on the market , with software and support
-            that actually helps candidates perform.</p>
-          <ul class="service-features">
-            <li><span class="check"><svg viewBox="0 0 10 10">
-                  <path d="M2 5l2.5 2.5L8 3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                    stroke-linejoin="round" />
-                </svg></span>2-second speed</li>
-            <li><span class="check"><svg viewBox="0 0 10 10">
-                  <path d="M2 5l2.5 2.5L8 3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                    stroke-linejoin="round" />
-                </svg></span>Modern, context-rich documentation</li>
-            <li><span class="check"><svg viewBox="0 0 10 10">
-                  <path d="M2 5l2.5 2.5L8 3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                    stroke-linejoin="round" />
-                </svg></span>Expert-guided coding & system design</li>
-          </ul>
+  <footer style="border-top: 2px solid var(--color-divider);">
+    <div style="max-width: 1200px; margin: 0 auto; padding: clamp(32px, 4vw, 56px) clamp(20px, 5vw, 72px);">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 32px; padding-bottom: 32px; border-bottom: 1px solid var(--color-divider);">
+        <div>
+          <span style="font-family: var(--font-heading); font-weight: 800; font-size: 18px; display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+            <span style="width: 10px; height: 10px; background: var(--color-accent); display: block;"></span>
+            ZYTHEQ
+          </span>
+          <p style="font-size: 13.5px; line-height: 1.65; margin: 0; color: color-mix(in srgb, var(--color-text) 70%, transparent); max-width: 32ch;">Recruiting to specification. 1 Market Street, Suite 300, San Francisco, CA 94105. Serving San Francisco, Palo Alto, Mountain View and San Jose.</p>
         </div>
-
-        <!-- Service 2: Assessment Training -->
-        <div class="service-card reveal-child">
-          <div class="service-number">02 — ASSESSMENT Sessions</div>
-          <h3 class="display-md">Assessment<br>that brings interviews</h3>
-          <p class="body">We connect with candidates early and prepare them with a 100% guarantee — because when you
-            guide them right, they don't fail.</p>
-          <ul class="service-features">
-            <li><span class="check"><svg viewBox="0 0 10 10">
-                  <path d="M2 5l2.5 2.5L8 3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                    stroke-linejoin="round" />
-                </svg></span>100% assessment guarantee</li>
-            <li><span class="check"><svg viewBox="0 0 10 10">
-                  <path d="M2 5l2.5 2.5L8 3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                    stroke-linejoin="round" />
-                </svg></span>Early connection for better guidance</li>
-            <li><span class="check"><svg viewBox="0 0 10 10">
-                  <path d="M2 5l2.5 2.5L8 3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                    stroke-linejoin="round" />
-                </svg></span>Tailored to actual assessment patterns</li>
-          </ul>
+        <div style="display: grid; gap: 8px; align-content: start; font-size: 14px;">
+          <span style="font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 55%, transparent); margin-bottom: 4px;">Company</span>
+          <a href="#services">Services</a>
+          <a href="#process">Process</a>
+          <a href="#clients">Clients</a>
+          <a href="#jobs">Open jobs</a>
         </div>
-
-        <!-- Service 3: Technical Training -->
-        <div class="service-card reveal-child">
-          <div class="service-number">03 — TECHNICAL TRAINING</div>
-          <h3 class="display-md">Technical<br>Training</h3>
-          <p class="body">Basic and advanced programs — 30 hours each, fully 1:1, delivered by real industry experts
-            with 5+ years of hands-on experience.</p>
-          <ul class="service-features">
-            <li><span class="check"><svg viewBox="0 0 10 10">
-                  <path d="M2 5l2.5 2.5L8 3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                    stroke-linejoin="round" />
-                </svg></span>30 hours basic + 30 hours advanced</li>
-            <li><span class="check"><svg viewBox="0 0 10 10">
-                  <path d="M2 5l2.5 2.5L8 3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                    stroke-linejoin="round" />
-                </svg></span>1:1 with real industry professionals</li>
-            <li><span class="check"><svg viewBox="0 0 10 10">
-                  <path d="M2 5l2.5 2.5L8 3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                    stroke-linejoin="round" />
-                </svg></span>Hands-on projects & assignments</li>
-          </ul>
+        <div style="display: grid; gap: 8px; align-content: start; font-size: 14px;">
+          <span style="font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 55%, transparent); margin-bottom: 4px;">Talk to us</span>
+          <a href="mailto:hello@zytheq.com">hello@zytheq.com</a>
+          <a href="mailto:talent@zytheq.com">talent@zytheq.com</a>
+          <a href="mailto:careers@zytheq.com">careers@zytheq.com</a>
         </div>
-
-        <!-- Service 4: Full Candidate Onboarding (Featured) -->
-        <div class="service-card featured reveal-child">
-          <div class="service-number">04 — FULL CANDIDATE ONBOARDING</div>
-          <div class="featured-inner">
-            <div>
-              <h3 class="display-md">Full Candidate<br>Onboarding</h3>
-              <p class="body">The complete package. We handle everything your in-house training team would — interviews,
-                assessments, training, screening — A to Z.</p>
-            </div>
-            <ul class="service-features">
-              <li><span class="check"><svg viewBox="0 0 10 10">
-                    <path d="M2 5l2.5 2.5L8 3" fill="none" stroke="currentColor" stroke-width="1.5"
-                      stroke-linecap="round" stroke-linejoin="round" />
-                  </svg></span>Complete interview management</li>
-              <li><span class="check"><svg viewBox="0 0 10 10">
-                    <path d="M2 5l2.5 2.5L8 3" fill="none" stroke="currentColor" stroke-width="1.5"
-                      stroke-linecap="round" stroke-linejoin="round" />
-                  </svg></span>Assessment preparation & execution</li>
-              <li><span class="check"><svg viewBox="0 0 10 10">
-                    <path d="M2 5l2.5 2.5L8 3" fill="none" stroke="currentColor" stroke-width="1.5"
-                      stroke-linecap="round" stroke-linejoin="round" />
-                  </svg></span>Full technical training (basic + advanced)</li>
-              <li><span class="check"><svg viewBox="0 0 10 10">
-                    <path d="M2 5l2.5 2.5L8 3" fill="none" stroke="currentColor" stroke-width="1.5"
-                      stroke-linecap="round" stroke-linejoin="round" />
-                  </svg></span>Candidate screening & verification</li>
-              <li><span class="check"><svg viewBox="0 0 10 10">
-                    <path d="M2 5l2.5 2.5L8 3" fill="none" stroke="currentColor" stroke-width="1.5"
-                      stroke-linecap="round" stroke-linejoin="round" />
-                  </svg></span>Replaces your entire in-house training team</li>
-            </ul>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================
-       SOCIAL PROOF / STATS
-       ============================================================ -->
-  <section class="stats-section" id="results">
-    <div class="stats-glow"></div>
-    <div class="container">
-      <div class="stats-content reveal">
-        <p class="eyebrow">Track Record</p>
-        <div class="stat-row">
-          <span class="stat-number" id="placement-counter" data-target="22">0</span>
-        </div>
-        <p class="stat-label">placements in 5 months</p>
-        <p class="stat-tagline">
-          A number <span class="stat-sub">no one has single-handedly achieved</span> in 7 years of industry.
-        </p>
-
-        <div class="stats-row">
-          <div class="mini-stat reveal-child">
-            <div class="mini-stat-number" data-target="5" id="months-counter">0</div>
-            <div class="mini-stat-label">Months</div>
-          </div>
-          <div class="mini-stat reveal-child">
-            <div class="mini-stat-number" data-target="7" id="years-counter">0</div>
-            <div class="mini-stat-label">Years of Industry</div>
-          </div>
-          <div class="mini-stat reveal-child">
-            <div class="mini-stat-number">#1</div>
-            <div class="mini-stat-label">Single-Handed Record</div>
-          </div>
+        <div style="display: grid; gap: 8px; align-content: start; font-size: 14px;">
+          <span style="font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 55%, transparent); margin-bottom: 4px;">Legal</span>
+          <a href="mailto:privacy@zytheq.com">Privacy</a>
+          <a href="mailto:legal@zytheq.com">Terms</a>
+          <a href="mailto:dpo@zytheq.com">Data requests</a>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- ============================================================
-       WHY ZYTHEQ
-       ============================================================ -->
-  <section class="why-section" id="why">
-    <div class="container">
-      <div class="section-header reveal">
-        <p class="eyebrow">Why Zytheq</p>
-        <h2 class="display-lg">The best service money can buy.<br>And we mean it.</h2>
-        <p class="body-lg">Every detail is intentional. Every process is refined. Here's what sets us apart.</p>
-      </div>
-
-      <div class="why-grid reveal-stagger">
-        <div class="why-card reveal-child">
-          <div class="why-icon">👨‍💼</div>
-          <h3 class="heading">Real Industry Experts</h3>
-          <p class="body">Every trainer currently works in the exact role they teach. 5+ years of real experience. No
-            scripts. No AI.</p>
-        </div>
-
-        <div class="why-card reveal-child">
-          <div class="why-icon">🎯</div>
-          <h3 class="heading">1:1 Sessions</h3>
-          <p class="body">Every candidate gets individual time with their trainer. Not a seat in a large group class —
-            real, focused attention.</p>
-        </div>
-
-        <div class="why-card reveal-child">
-          <div class="why-icon">🛠️</div>
-          <h3 class="heading">Hands-On Assignments</h3>
-          <p class="body">Real assignments after every module. Candidates practice the work, not just watch someone else
-            do it.</p>
-        </div>
-
-        <div class="why-card reveal-child">
-          <div class="why-icon">📝</div>
-          <h3 class="heading">Complete Notes</h3>
-          <p class="body">Clear, organized notes covering every topic. Candidates own their learning material for life.
-          </p>
-        </div>
-
-        <div class="why-card reveal-child">
-          <div class="why-icon">🕒</div>
-          <h3 class="heading">Flexible Scheduling</h3>
-          <p class="body">Sessions scheduled around each candidate's availability. Evenings, weekends — whatever works.
-          </p>
-        </div>
-
-        <div class="why-card reveal-child">
-          <div class="why-icon">🏆</div>
-          <h3 class="heading">Certificate of Completion</h3>
-          <p class="body">Every candidate receives an official Zytheq certificate upon finishing their program.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================
-       CONTACT / CTA
-       ============================================================ -->
-  <section class="contact-section" id="contact">
-    <div class="container">
-      <div class="contact-wrapper reveal">
-        <div class="contact-inner">
-          <p class="eyebrow">Get Started</p>
-          <h2 class="display-lg">Ready to give your candidates<br>an unfair advantage?</h2>
-          <p class="body-lg">Let's talk about how Zytheq can transform your hiring process. Reach out through any
-            channel.</p>
-
-          <div class="contact-methods">
-            <a href="mailto:zythos@zytheq.com" class="contact-method" id="contact-email">
-              <svg viewBox="0 0 24 24" fill="none">
-                <rect x="2" y="4" width="20" height="16" rx="3" stroke="currentColor" stroke-width="1.5" />
-                <path d="M2 7l10 7 10-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                  stroke-linejoin="round" />
-              </svg>
-              zythos@zytheq.com
-            </a>
-
-            <a href="https://wa.me/919870081264" target="_blank" rel="noopener" class="contact-method"
-              id="contact-whatsapp">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21" stroke="currentColor" stroke-width="1.5"
-                  stroke-linecap="round" stroke-linejoin="round" />
-                <path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1zm5 5a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1h1z"
-                  fill="currentColor" />
-              </svg>
-              +91 9870081264
-            </a>
-
-            <a href="#" target="_blank" rel="noopener" class="contact-method" id="contact-linkedin">
-              <svg viewBox="0 0 24 24" fill="none">
-                <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.5" />
-                <path d="M7 11v5M7 7v.01M11 15v-3a2 2 0 1 1 4 0v3M11 11v-0" stroke="currentColor" stroke-width="1.5"
-                  stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
-              LinkedIn
-            </a>
-          </div>
-
-          <a href="mailto:zythos@zytheq.com" class="btn-primary" id="contact-main-cta">
-            Let's Talk
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                stroke-linejoin="round" />
-            </svg>
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================
-       FOOTER
-       ============================================================ -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-inner">
-        <div class="footer-brand">ZYTHE<span>Q</span></div>
-        <div class="footer-tagline">Everything included, but better.</div>
-        <div class="footer-copy">&copy; 2025 Zytheq. All rights reserved.</div>
-      </div>
+      <p style="font-size: 12.5px; line-height: 1.6; margin: 24px 0 0; color: color-mix(in srgb, var(--color-text) 55%, transparent);">© 2026 Zytheq Talent Partners, Inc. Equal opportunity employer and staffing partner. zytheq.com</p>
     </div>
   </footer>
+</div>
 
-  <!-- ============================================================
-       JAVASCRIPT
-       ============================================================ -->
-  <script>
-    // === Navigation scroll effect ===
-    const nav = document.getElementById('main-nav');
-    let lastScroll = 0;
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;defaultAudience&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;clients&quot;,&quot;candidates&quot;],&quot;default&quot;:&quot;clients&quot;,&quot;tsType&quot;:&quot;'clients' | 'candidates'&quot;,&quot;section&quot;:&quot;Content&quot;}}">
+class Component extends DCLogic {
+  state = { audience: "clients", sent: false };
 
-    function handleNavScroll() {
-      const scrollY = window.scrollY;
-      if (scrollY > 80) {
-        nav.classList.add('scrolled');
-      } else {
-        nav.classList.remove('scrolled');
-      }
-      lastScroll = scrollY;
+  componentDidMount() {
+    if ((this.props.defaultAudience || "").toLowerCase() === "candidates") {
+      this.setState({ audience: "candidates" });
     }
+  }
 
-    window.addEventListener('scroll', handleNavScroll, { passive: true });
-
-    // === Mobile menu toggle ===
-    const navToggle = document.getElementById('nav-toggle');
-    const navLinks = document.getElementById('nav-links');
-
-    navToggle.addEventListener('click', () => {
-      navToggle.classList.toggle('active');
-      navLinks.classList.toggle('open');
+  renderVals() {
+    const isClients = this.state.audience === "clients";
+    const base = "btn ";
+    const ink = "201e1d";
+    const mk = (slug, name, note) => ({
+      logo: "https://cdn.simpleicons.org/" + slug + "/" + ink,
+      alt: name + " logo",
+      note: note
     });
-
-    // Close mobile menu on link click
-    navLinks.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        navToggle.classList.remove('active');
-        navLinks.classList.remove('open');
-      });
-    });
-
-    // === Scroll Reveal with IntersectionObserver ===
-    const revealElements = document.querySelectorAll('.reveal, .reveal-stagger');
-
-    const revealObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          // Don't unobserve — keeps it simple, and re-triggering is fine
-        }
-      });
-    }, {
-      threshold: 0.12,
-      rootMargin: '0px 0px -60px 0px'
-    });
-
-    revealElements.forEach(el => revealObserver.observe(el));
-
-    // === Animated Counters ===
-    function animateCounter(element, target, duration = 1800, suffix = '') {
-      const start = 0;
-      const startTime = performance.now();
-
-      function easeOutExpo(t) {
-        return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
-      }
-
-      function step(currentTime) {
-        const elapsed = currentTime - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        const easedProgress = easeOutExpo(progress);
-        const current = Math.round(start + (target - start) * easedProgress);
-
-        element.textContent = current + suffix;
-
-        if (progress < 1) {
-          requestAnimationFrame(step);
-        }
-      }
-
-      requestAnimationFrame(step);
-    }
-
-    // Observe counters
-    const counterTargets = [
-      { el: document.getElementById('placement-counter'), target: 22, suffix: '' },
-      { el: document.getElementById('months-counter'), target: 5, suffix: '' },
-      { el: document.getElementById('years-counter'), target: 7, suffix: '' }
+    const clients = [
+      mk("apple", "Apple", "Silicon and services"),
+      mk("google", "Google", "Cloud and infra"),
+      mk("meta", "Meta", "Infra and ML"),
+      mk("tesla", "Tesla", "Autonomy platform"),
+      mk("netflix", "Netflix", "Streaming platform"),
+      mk("nvidia", "Nvidia", "Systems software"),
+      mk("visa", "Visa", "Payments risk"),
+      mk("paypal", "PayPal", "Fraud and identity"),
+      mk("qualcomm", "Qualcomm", "Firmware and tools"),
+      mk("cisco", "Cisco", "Network security"),
+      mk("intel", "Intel", "Firmware and tools"),
+      mk("stripe", "Stripe", "Payments engineering"),
+      mk("uber", "Uber", "Marketplace data"),
+      mk("airbnb", "Airbnb", "Trust and safety"),
+      mk("doordash", "DoorDash", "Logistics platform"),
+      mk("databricks", "Databricks", "Data engineering"),
+      mk("snowflake", "Snowflake", "Query engine"),
+      mk("coinbase", "Coinbase", "Security engineering")
     ];
-
-    const counterObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const counterData = counterTargets.find(c => c.el === entry.target || entry.target.contains(c.el));
-          if (counterData && !counterData.animated) {
-            counterData.animated = true;
-            animateCounter(counterData.el, counterData.target, 2000, counterData.suffix);
-          }
-        }
-      });
-    }, { threshold: 0.5 });
-
-    counterTargets.forEach(c => {
-      if (c.el) counterObserver.observe(c.el);
-    });
-
-    // === Speed comparison animation ===
-    const speedEl = document.getElementById('speed-counter');
-    if (speedEl) {
-      const speedObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting && !speedEl.dataset.animated) {
-            speedEl.dataset.animated = 'true';
-            // Animate from 4.5 down to 2.0
-            const duration = 1600;
-            const startTime = performance.now();
-            const startVal = 4.5;
-            const endVal = 2.0;
-
-            function easeOutExpo(t) {
-              return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
-            }
-
-            function step(currentTime) {
-              const elapsed = currentTime - startTime;
-              const progress = Math.min(elapsed / duration, 1);
-              const easedProgress = easeOutExpo(progress);
-              const current = startVal + (endVal - startVal) * easedProgress;
-
-              speedEl.textContent = current.toFixed(1) + 's';
-
-              if (progress < 1) {
-                requestAnimationFrame(step);
-              }
-            }
-
-            requestAnimationFrame(step);
-          }
-        });
-      }, { threshold: 0.5 });
-
-      speedObserver.observe(speedEl);
-    }
-
-    // === Smooth scroll for anchor links ===
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          const navHeight = nav.offsetHeight;
-          const targetPosition = target.getBoundingClientRect().top + window.scrollY - navHeight - 20;
-          window.scrollTo({
-            top: targetPosition,
-            behavior: 'smooth'
-          });
-        }
-      });
-    });
-  </script>
+    const roles = [
+      { role: "Staff Platform Engineer", practice: "Software engineering", location: "San Francisco, hybrid", band: "$260k to $310k", status: "Shortlisting", tagClass: "tag tag-accent" },
+      { role: "Director of Data Science", practice: "Data and AI", location: "Palo Alto, CA", band: "$300k to $360k", status: "Interviewing", tagClass: "tag tag-neutral" },
+      { role: "Principal Product Manager", practice: "Product", location: "Mountain View, CA", band: "$245k to $290k", status: "Open", tagClass: "tag tag-outline" },
+      { role: "Head of Security Engineering", practice: "Software engineering", location: "Remote, US", band: "$275k to $330k", status: "Shortlisting", tagClass: "tag tag-accent" },
+      { role: "VP Revenue Operations", practice: "Go to market", location: "San Jose, CA", band: "$230k to $270k", status: "Offer stage", tagClass: "tag tag-neutral" },
+      { role: "Senior Design Lead", practice: "Product and design", location: "Oakland, CA", band: "$195k to $225k", status: "Open", tagClass: "tag tag-outline" }
+    ];
+    return {
+      clients,
+      roles,
+      isClients,
+      isCandidates: !isClients,
+      sent: this.state.sent,
+      notSent: !this.state.sent,
+      clientsTabClass: base + (isClients ? "btn-primary" : "btn-secondary"),
+      candidatesTabClass: base + (isClients ? "btn-secondary" : "btn-primary"),
+      showClients: () => this.setState({ audience: "clients" }),
+      showCandidates: () => this.setState({ audience: "candidates" }),
+      onSubmit: (e) => { e.preventDefault(); this.setState({ sent: true }); },
+      resetForm: () => this.setState({ sent: false })
+    };
+  }
+}
+</script>
 </body>
-
 </html>
